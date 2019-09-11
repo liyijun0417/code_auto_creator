@@ -1,0 +1,468 @@
+
+<style>
+.videoitem{
+	margin-top: 5px;
+margin-left: -5px;
+}
+
+.videoInfo{
+	border: 1px solid #CCC;
+	width:100%;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	padding:5px;
+}
+.videoMain{
+	margin-right: 1%;
+	margin-bottom: 1%;
+	width: 19%;
+	border: 2px solid #ccc;
+}
+.videoMain div{
+	float: left;
+}
+.centerbox{
+	width: 100%;
+}
+</style>
+<link href="__PUBLIC__/css/video-js.min.css" rel="stylesheet">
+<script src="__PUBLIC__/js/video.min.js"></script>
+
+   <!-- site specific styling -->
+
+
+
+
+   <!-- include flowplayer -->
+
+
+	<div class="breadcrumbs" id="breadcrumbs">
+		<script type="text/javascript">
+			try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
+		</script>
+
+		<ul class="breadcrumb">
+			<li>
+				<i class="icon-home home-icon"></i>
+				<a href="{:U('Index/index')}">首页</a>
+			</li>
+			<li class="active">视频管理</li>
+		</ul><!-- .breadcrumb -->
+
+		<!-- <div class="nav-search" id="nav-search">
+			<form class="form-search">
+				<span class="input-icon">
+					<input type="text" placeholder="Search ..." class="nav-search-input" id="nav-search-input" autocomplete="off" />
+					<i class="icon-search nav-search-icon"></i>
+				</span>
+			</form>
+		</div><!-- #nav-search -->
+	</div>
+
+	<div class="page-content">
+		<div class="page-header">
+			<h1>
+					当前话题：<strong class="pink">{$TopicName}</strong>
+			</h1>
+		</div><!-- /.page-header -->
+
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="tabbable">
+						<ul class="nav nav-tabs" id="myTab">
+							<li class="<if condition="$_GET['style'] eq home">active</if> check-table" data-id="home">
+								<a data-toggle="tab" href="#home">
+									<i class="green icon-inbox bigger-110"></i>
+									本话题中的视频
+								</a>
+							</li>
+
+							<li class="<if condition="$_GET['style'] eq other">active</if> check-table" data-id="profile">
+								<a data-toggle="tab" href="#profile">
+									<i class="red icon-search nav-search-icon bigger-110"></i>
+									查找添加新视频
+								</a>
+							</li>
+						</ul>
+
+						<div class="tab-content">
+							<div id="home" class="tab-pane <if condition="$_GET['style'] eq home">active</if>">
+								<div class="row">
+								<div class="col-xs-12 col-sm-12">
+										<div class="widget-box">
+											<div class="widget-header">
+												<h4>搜索</h4>
+
+												<span class="widget-toolbar">
+
+													<a href="#" data-action="collapse">
+														<i class="icon-chevron-up"></i>
+													</a>
+
+													<a href="#" data-action="close">
+														<i class="icon-remove"></i>
+													</a>
+												</span>
+											</div>
+
+											<div class="widget-body">
+												<div class="widget-main">
+													<form class="form-inline" role="form" id="form-signin" action="{:U('Topic/video')}" method="get">
+														<input type="hidden" name="style" value="{$_GET['style']}"/>
+														<div class="form-group">
+															<label class="sr-only">视频名称</label>
+															<input type="text" name="share_name2" value="{$_GET['share_name2']}" class="form-control" id="share_name2" placeholder="视频名称">
+														</div>
+
+														<input type="hidden" name="id" value="{$_GET['id']}"/>
+
+														<div class="form-group">
+															<label class="sr-only">视频分类</label>
+															<select class="form-control" name="share_cat_id2" id="form-field-select-1">
+																	<option value="">全部分类</option>
+																<volist name="cats" id="vo">
+																	<option value="{$vo.cat_id}" <if condition="$vo['cat_id'] eq $_GET['share_cat_id2']">selected="selected"</if>>{$vo.cat_name}</option>
+																</volist>
+															</select>
+														</div>
+														<button type="submit" class="btn btn-sm btn-warning">查找</button>
+
+													</form>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col-xs-12">
+									<div class="row">
+										<div class="centerbox">
+												<empty name="data2">
+													<div class="alert alert-danger" style="text-align:center"> <strong><i class="fa fa-meh-o"></i>
+																	&nbsp;&nbsp;当前条件下没有数据</strong>
+													</div>
+													<else />
+												<volist name ="data2" id="vo2">
+													<div class="videoMain col-xs-3">
+														<div class="videoitem">
+															<video id="example_video_1" class="video-js vjs-default-skin" controls preload="none" width="300" height="264"
+
+																poster="http://139.196.29.150:82/{$vo2.share_image}"
+
+																data-setup="{}">
+
+																<source src="{$vo2.video_url}" type='video/mp4' />
+
+														</div>
+															<div class="videoInfo">
+																<b>标题</b>:&nbsp; <a href="#" class="tooltip-test" data-toggle="tooltip" data-placement="left" title="{$vo2.share_name}">{$vo2.share_name|msubstr=0,15,'utf-8'}</a></br>
+																<div style="width:50%;">
+																	<b>分类</b>:&nbsp;{$vo2.cata}</br>
+																	<b>浏览</b>:&nbsp;{$vo2.share_view_count}次</br>
+																	<b>分享</b>:&nbsp;{$vo2.share_share_count}次
+																</div>
+																<div style="width:50%;">
+																	<b>作者</b>:&nbsp;{$vo2.author}</br>
+																	<b>收藏</b>:&nbsp;{$vo2.share_follow_count}次</br>
+																	<b>点赞</b>:&nbsp;{$vo2.share_zan_count}次
+																</div>
+															</div>
+															<div class="videoInfo">
+																	<a href="javascript:void(0);" class="btn-danger btn btn-sm del-it" style="width:100%;" data-id="{$vo2.share_id}" data-name="{$vo2.share_name}">移除出该话题</a>
+															</div>
+												</div>
+										</volist>
+									</empty>
+
+									</div>
+
+									</div>
+								</div>
+								<ul class="pagination" style="clearfix">
+										{$pageView2}
+								</ul>
+
+
+
+
+							</div>
+
+							<div id="profile" class="tab-pane <if condition="$_GET['style'] eq other">active</if>">
+								<div class="row">
+								<div class="col-xs-12 col-sm-12">
+										<div class="widget-box">
+											<div class="widget-header">
+												<h4>搜索</h4>
+
+												<span class="widget-toolbar">
+
+													<a href="#" data-action="collapse">
+														<i class="icon-chevron-up"></i>
+													</a>
+
+													<a href="#" data-action="close">
+														<i class="icon-remove"></i>
+													</a>
+												</span>
+											</div>
+
+											<div class="widget-body">
+												<div class="widget-main">
+													<form class="form-inline" role="form" id="form-signin" action="{:U('Topic/video')}" method="get">
+														<input type="hidden" name="style" value="{$_GET['style']}"/>
+														<div class="form-group">
+															<label class="sr-only">视频名称</label>
+															<input type="text" name="share_name" value="{$_GET['share_name']}" class="form-control" id="share_name" placeholder="视频名称">
+														</div>
+
+														<input type="hidden" name="id" value="{$_GET['id']}"/>
+
+														<div class="form-group">
+															<label class="sr-only">视频分类</label>
+															<select class="form-control" name="share_cat_id" id="form-field-select-1">
+																	<option value="">全部分类</option>
+																<volist name="cats" id="vo">
+																	<option value="{$vo.cat_id}" <if condition="$vo['cat_id'] eq $_GET['share_cat_id']">selected="selected"</if>>{$vo.cat_name}</option>
+																</volist>
+															</select>
+														</div>
+														<button type="submit" class="btn btn-sm btn-warning">查找</button>
+
+													</form>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+
+											<div class="col-xs-12">
+												<div class="row">
+													<div class="centerbox">
+											<empty name="data1">
+												<div class="alert alert-danger" style="text-align:center"> <strong><i class="fa fa-meh-o"></i>
+																&nbsp;&nbsp;当前条件下没有数据</strong>
+												</div>
+												<else />
+											<volist name ="data1" id="vo">
+												<div class="videoMain col-xs-3">
+													<div class="videoitem">
+														<video id="example_video_1" class="video-js vjs-default-skin" controls preload="none" width="300" height="264"
+
+															poster="http://139.196.29.150:82/{$vo.share_image}"
+
+															data-setup="{}">
+
+															<source src="{$vo.video_url}" type='video/mp4' />
+
+													</div>
+														<div class="videoInfo">
+															<b>标题</b>:&nbsp; <a href="#" class="tooltip-test" data-toggle="tooltip" data-placement="left" title="{$vo.share_name}">{$vo.share_name|msubstr=0,15,'utf-8'}</a></br>
+															<!-- <b>作者</b>:&nbsp;{$vo.author}</br>
+															<b>播放次数</b>:&nbsp;{$vo.share_view_count}次</br>
+															<b>分类</b>:&nbsp;{$vo.cata}</br>
+															<b>分享次数</b>:&nbsp;{$vo.share_share_count}次</br>
+															<b>点赞</b>:&nbsp;{$vo.share_zan_count}次</br> -->
+															<div style="width:50%;">
+																<b>分类</b>:&nbsp;{$vo.cata}</br>
+																<b>浏览</b>:&nbsp;{$vo.share_view_count}次</br>
+																<b>分享</b>:&nbsp;{$vo.share_share_count}次
+															</div>
+															<div style="width:50%;">
+																<b>作者</b>:&nbsp;{$vo.author}</br>
+																<b>收藏</b>:&nbsp;{$vo.share_follow_count}次</br>
+																<b>点赞</b>:&nbsp;{$vo.share_zan_count}次
+															</div>
+														</div>
+														<div class="videoInfo">
+
+
+																<a href="javascript:void(0);" class="btn-info btn btn-sm add-it" style="width:100%;" data-id="{$vo.share_id}" data-name="{$vo.share_name}">加入该话题</a>
+
+															<!-- <if condition="$vo['is_join'] eq 1">
+																<a href="javascript:void(0);" class="btn-danger btn btn-sm del-it" style="width:100%;" data-id="{$vo.share_id}" data-name="{$vo.share_name}">移除出该话题</a>
+															</if> -->
+														</div>
+											</div>
+									</volist>
+								</empty>
+
+								</div>
+
+								</div>
+							</div>
+							<ul class="pagination" style="clearfix">
+									{$pageView}
+							</ul>
+							</div>
+
+
+							</div>
+						</div>
+					</div>
+
+
+</div>
+	<script>
+		$(".add-btn").click(function(){
+
+			if($(".sh-btn").prop("checked")){
+
+				var id = $(this).attr("data-id");
+				var obj = $(this);
+				$.ajax({
+						type: "POST",
+						url: '{:U("Topic/delVideo")}',
+						data: {
+								key:id
+						},
+						dataType: "json",
+						success: function(data) {
+								layer.msg(data.msg, {icon: 1});
+								setTimeout(function(){window.location.reload();},1000);
+						}
+				});
+
+
+			}else{
+
+				var video_id   = $(this).attr("data-id");
+				var video_name = $(this).attr("data-name");
+				var topic_id = '{$_GET['id']}';
+
+				$.ajax({
+						type: "POST",
+						url: '{:U("Topic/addVideo")}',
+						data: {
+								video_id:video_id,name: video_name,topic_id:topic_id
+						},
+						dataType: "json",
+						success: function(data) {
+								if(data.state==100){
+										layer.msg(data.msg, {icon: 1});
+										var str = "<div class='btn-group'><button type='button' class='btn btn-info cor1' data-id="+video_id+" disabled>" +video_name+ "</button><button type='button' class='btn btn-danger cordel' data-id="+video_id+">清除</button></div>";
+										$('.bt-video').append(str);
+										setTimeout(function(){window.location.reload();},1000);
+
+								}else{
+										layer.msg(data.msg, {icon: 2});
+								}
+						}
+				});
+
+
+			}
+
+		});
+
+
+		$(document).on("click",".check-table",function(){
+			var id = {$_GET['id']};
+			var tv = $(this).attr('data-id');
+			var url = '/Topic/video/';
+			if(tv=='home'){
+				var bb = url + 'style/home/id/';
+			}else{
+				var bb = url + 'style/other/id/';
+			}
+			var new_url = bb + id;
+			 window.location.href = new_url;
+			// alert(new_url);
+		});
+
+		$(document).on("click",".cordel",function(){
+        var id = $(this).attr("data-id");
+        var obj = $(this);
+
+        $.ajax({
+            type: "POST",
+            url: '{:U("Topic/delVideo")}',
+            data: {
+                key:id
+            },
+            dataType: "json",
+            success: function(data) {
+                layer.msg(data.msg, {icon: 1});
+                obj.parent().remove();
+
+            }
+        });
+    });
+
+
+		$(".del-it").click(function(){
+			var obj = $(this);
+			var video_id = $(this).attr("data-id");
+			var topic_id = '{$_GET['id']}';
+
+			layer.confirm('确定要将该视频移出本话题？', {
+			  btn: ['移除','不了'] //按钮
+			}, function(){
+				$.ajax({
+            type: "POST",
+            url: '{:U("Topic/delTheVideo")}',
+            data: {
+                video_id:video_id,topic_id:topic_id
+            },
+            dataType: "json",
+            success: function(data) {
+							if(data.state==100){
+								obj.parent().parent().remove();
+								layer.msg(data.msg, {icon: 1});
+								//setTimeout(function(){window.location.reload();},2000);
+							}else{
+								layer.msg(data.msg, {icon: 2});
+							}
+            }
+        });
+			}, function(){
+				layer.msg('已取消操作', {icon: 1});
+			});
+		});
+
+
+		$(".add-it").click(function(){
+			var obj = $(this);
+			var video_id = $(this).attr("data-id");
+			var topic_id = '{$_GET['id']}';
+
+				$.ajax({
+						type: "POST",
+						url: '{:U("Topic/addTheVideo")}',
+						data: {
+								video_id:video_id,topic_id:topic_id
+						},
+						dataType: "json",
+						success: function(data) {
+							if(data.state==100){
+								obj.parent().parent().remove();
+								layer.msg(data.msg, {icon: 1});
+								//setTimeout(function(){window.location.reload();},2000);
+							}else{
+								layer.msg(data.msg, {icon: 2});
+							}
+						}
+				});
+
+		});
+
+		$("#joinTopic").click(function(){
+			var topic_id = $(this).attr('data-id');
+			$.ajax({
+					type: "POST",
+					url: '{:U("Topic/joinTopic")}',
+					data: {
+							topic_id:topic_id
+					},
+					dataType: "json",
+					success: function(data) {
+						if(data.state == 100){
+							layer.msg(data.msg, {icon: 1});
+							setTimeout(function(){window.location.reload();},2000);
+						}else{
+							layer.msg(data.msg, {icon: 2});
+						}
+
+					}
+			});
+
+		});
+	</script>

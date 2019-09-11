@@ -1,0 +1,199 @@
+
+	<div class="breadcrumbs" id="breadcrumbs">
+		<script type="text/javascript">
+			try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
+		</script>
+
+		<ul class="breadcrumb">
+			<li>
+				<i class="icon-home home-icon"></i>
+				<a href="{:U('Index/index')}">首页</a>
+			</li>
+			<li class="active">请假统计</li>
+		</ul><!-- .breadcrumb -->
+
+		<!-- <div class="nav-search" id="nav-search">
+			<form class="form-search">
+				<span class="input-icon">
+					<input type="text" placeholder="Search ..." class="nav-search-input" id="nav-search-input" autocomplete="off" />
+					<i class="icon-search nav-search-icon"></i>
+				</span>
+			</form>
+		</div><!-- #nav-search -->
+	</div>
+
+	<div class="page-content">
+		<div class="page-header">
+			<h1>
+					请假统计
+			</h1>
+		</div><!-- /.page-header -->
+
+		<div class="row">
+			<div class="col-xs-12">
+				<!-- PAGE CONTENT BEGINS -->
+				<div class="row">
+				<div class="col-xs-12 col-sm-12">
+						<div class="widget-box">
+							<div class="widget-header">
+								<h4>查找人员</h4>
+
+								<span class="widget-toolbar">
+
+									<a href="#" data-action="collapse">
+										<i class="icon-chevron-up"></i>
+									</a>
+
+									<a href="#" data-action="close">
+										<i class="icon-remove"></i>
+									</a>
+								</span>
+							</div>
+
+							<div class="widget-body">
+								<div class="widget-main">
+									<form class="form-inline" role="form" id="form-signin" action="__ACTION__" method="get">
+									  <div class="form-group">
+									    <label class="sr-only">人员名称</label>
+									    <input type="text" name="teacher_name" value="{$_GET['teacher_name']}" class="form-control" id="teacher_name" placeholder="请输入人员名称">
+									  </div>
+
+									
+									<div class="form-group">
+										<label for="meeting">开始日期：</label><input name="start" type="date" value="{$_GET['start']}"/>
+									</div>
+									
+									<div class="form-group">
+										<label for="meeting">结束日期：</label><input name="over" type="date" value="{$_GET['over']}"/>
+									</div>
+
+
+
+
+									  <button type="submit" class="btn btn-sm btn-warning">查找</button>
+									  
+									  <a href="{:U('System/vocation2')}" class="btn btn-sm btn-pink">所有请假记录</a>
+									  
+									  <input type="button" style="float:right;" class="btn btn-sm btn-success" onclick="aa()" value="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;请&nbsp;&nbsp;假&nbsp;&nbsp;打&nbsp;&nbsp;印&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"/>
+
+									</form>
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+
+				<div class="row">
+					<div class="col-xs-12">
+						<div class="table-responsive">
+							<table id="sample-table-1" class="table table-striped table-bordered table-hover">
+								<thead>
+									<tr>
+
+										<th>ID</th>
+										<th>人员</th>
+										<th>公休</th>
+										<th>事假</th>
+										<th>病假</th>
+										<th>学习</th>
+										<th>培训</th>
+										<th>产假/陪产假</th>
+										<th>婚假</th>
+										<th>开会</th>
+										<th>补休</th>
+										<th>体检</th>
+										<th>共计</th>
+										<!--<th style="width:30%;">备注</th>-->
+										
+									</tr>
+								</thead>
+
+								<tbody>		
+									<empty name="result">
+										<td colspan="99" style="text-align:center" class="danger"> <strong><i class="fa fa-meh-o"></i>
+												&nbsp;&nbsp;当前条件下没有数据</strong>
+										</td>
+										<else />
+											<volist name="result" id="data">
+												<tr>
+													<td>{$data.holiday_id}</td>
+													<td>{$data.people}</td>
+													<td><notempty name="data.gongxiu">{$data.gongxiu}<else/>0</notempty>天</td>
+													<td><notempty name="data.shijia">{$data.shijia}<else/>0</notempty>天</td>
+													<td><notempty name="data.bingjia">{$data.bingjia}<else/>0</notempty>天</td>
+													<td><notempty name="data.xuexi">{$data.xuexi}<else/>0</notempty>天</td>
+													<td><notempty name="data.peixun">{$data.peixun}<else/>0</notempty>天</td>
+													<td><notempty name="data.chanjia">{$data.chanjia}<else/>0</notempty>天</td>
+													<td><notempty name="data.hunjia">{$data.hunjia}<else/>0</notempty>天</td>
+													<td><notempty name="data.kaihui">{$data.kaihui}<else/>0</notempty>天</td>
+													<td><notempty name="data.buxiu">{$data.buxiu}<else/>0</notempty>天</td>
+													<td><notempty name="data.tijian">{$data.tijian}<else/>0</notempty>天</td>
+													<td>{$data.total}天</td>
+													<!--<td>{$data.brief}</td>-->
+													
+												</tr>
+											</volist>
+									</empty>
+								</tbody>
+							</table>
+						</div><!-- /.table-responsive -->
+						<tr>
+							<td colspan="99" style="text-align:center">
+									<ul class="pagination">{$pageView}</ul>
+							</td>
+						</tr>
+					</div><!-- /span -->
+				</div><!-- /row -->
+
+
+			<script language="javascript" src="__PUBLIC__/js/jq1.0.js"></script>
+			<script language="javascript" src="__PUBLIC__/js/jqprint.js"></script>
+			<script language="javascript">
+				
+			function aa(){
+				$("#sample-table-1").jqprint();
+			}
+			</script>
+			<script>
+	
+					$(".status").click(function(){
+						var id = $(this).attr('data-id');
+						var action_id = $(this).attr('data-action');
+						
+						var action_name = $(this).text();
+						
+						layer.confirm('确认修改为   '+action_name+' ？', {
+							  btn: ['确认','取消'] //按钮
+							}, function(){
+								$.ajax({
+										type: "POST",
+										url:  '{:U("system/updateAction")}',
+										data: {id:id,action_id:action_id},
+										dataType: "json",
+										success: function(data){
+												if(data.state==100){
+														layer.msg('修改状态成功!', {icon: 1});
+														location.reload(true);
+												}else{
+														layer.msg('修改状态失败!', {icon: 2});
+												}
+										}
+								});
+
+							}, function(){
+							
+							});
+					});
+
+
+
+
+
+
+
+
+
+			</script>

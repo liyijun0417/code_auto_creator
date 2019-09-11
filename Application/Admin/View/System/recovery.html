@@ -1,0 +1,180 @@
+
+	<div class="breadcrumbs" id="breadcrumbs">
+		<script type="text/javascript">
+			try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
+		</script>
+
+		<ul class="breadcrumb">
+			<li>
+				<i class="icon-home home-icon"></i>
+				<a href="{:U('Index/index')}">首页</a>
+			</li>
+			<li class="active">考勤列表</li>
+		</ul><!-- .breadcrumb -->
+
+		<!-- <div class="nav-search" id="nav-search">
+			<form class="form-search">
+				<span class="input-icon">
+					<input type="text" placeholder="Search ..." class="nav-search-input" id="nav-search-input" autocomplete="off" />
+					<i class="icon-search nav-search-icon"></i>
+				</span>
+			</form>
+		</div><!-- #nav-search -->
+	</div>
+
+	<div class="page-content">
+		<div class="page-header">
+			<h1>
+					考勤管理
+			</h1>
+		</div><!-- /.page-header -->
+
+		<div class="row">
+			<div class="col-xs-12">
+				<!-- PAGE CONTENT BEGINS -->
+				<div class="row">
+				<div class="col-xs-12 col-sm-12">
+						<div class="widget-box">
+							<div class="widget-header">
+								<h4>查找人员</h4>
+
+								<span class="widget-toolbar">
+
+									<a href="#" data-action="collapse">
+										<i class="icon-chevron-up"></i>
+									</a>
+
+									<a href="#" data-action="close">
+										<i class="icon-remove"></i>
+									</a>
+								</span>
+							</div>
+
+							<div class="widget-body">
+								<div class="widget-main">
+									<form class="form-inline" role="form" id="form-signin" action="__ACTION__" method="get">
+									  <div class="form-group">
+									    <label class="sr-only">人员名称</label>
+									    <input type="text" name="teacher_name" value="{$_GET['teacher_name']}" class="form-control" id="teacher_name" placeholder="请输入人员名称">
+									  </div>
+
+									
+
+
+
+
+									  <button type="submit" class="btn btn-sm btn-warning">查找</button>
+
+									</form>
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+
+				<div class="row">
+					<div class="col-xs-12">
+						<div class="table-responsive">
+							<table id="sample-table-1" class="table table-striped table-bordered table-hover">
+								<thead>
+									<tr>
+
+										<th>ID</th>
+										<th>人员</th>
+										<th class="hidden-480">状态</th>
+										<th class="hidden-480">操作时间</th>
+										<th class="hidden-480">备注</th>
+									
+										<th>操作</th>
+									</tr>
+								</thead>
+
+								<tbody>		
+									<empty name="result">
+										<td colspan="99" style="text-align:center" class="danger"> <strong><i class="fa fa-meh-o"></i>
+												&nbsp;&nbsp;当前条件下没有数据</strong>
+										</td>
+										<else />
+											<volist name="result" id="data">
+												<tr>
+													<td>{$data.id}</td>
+													<td>{$data.people}</td>
+													<td>{$data.cat_name}</td>
+													<td>{$data.addtime}</td>
+													<td>{$data.brief}</td>
+													<td>	
+														<div class="btn-group">
+															<button data-toggle="dropdown" class="btn btn-sm btn-pink dropdown-toggle">
+																修改
+																<i class="icon-angle-down icon-on-right"></i>
+															</button>
+
+															<ul class="dropdown-menu dropdown-danger">
+															<volist name="cat" id="vo">
+																<li>
+																	<a href="javascript:void(0);" class="status" data-id="{$data.id}" data-action="{$vo.cat_id}">{$vo.cat_name}</a>
+																</li>
+															</volist>
+															</ul>
+														</div>
+													</td>
+												</tr>
+											</volist>
+									</empty>
+
+									<tr>
+										<td colspan="99" style="text-align:center">
+												<ul class="pagination">{$pageView}</ul>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div><!-- /.table-responsive -->
+					</div><!-- /span -->
+				</div><!-- /row -->
+
+
+
+			<script>
+	
+					$(".status").click(function(){
+						var id = $(this).attr('data-id');
+						var action_id = $(this).attr('data-action');
+						
+						var action_name = $(this).text();
+						
+						layer.confirm('确认修改为   '+action_name+' ？', {
+							  btn: ['确认','取消'] //按钮
+							}, function(){
+								$.ajax({
+										type: "POST",
+										url:  '{:U("system/updateAction")}',
+										data: {id:id,action_id:action_id},
+										dataType: "json",
+										success: function(data){
+												if(data.state==100){
+														layer.msg('修改状态成功!', {icon: 1});
+														location.reload(true);
+												}else{
+														layer.msg('修改状态失败!', {icon: 2});
+												}
+										}
+								});
+
+							}, function(){
+							
+							});
+					});
+
+
+
+
+
+
+
+
+
+			</script>

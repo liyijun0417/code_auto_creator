@@ -1,0 +1,5 @@
+/Application/Runtime
+#/Application/Common/Conf/config.php merge=ours
+#/Application/Admin/Conf/config.php merge=ours
+#/Application/Common/Conf
+#/Application/TPH

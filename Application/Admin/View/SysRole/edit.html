@@ -1,0 +1,87 @@
+<div class="row" style="margin-top: 20px;">
+    <form class="form-horizontal" id="form1" method="post">
+    <div class="col-12">
+        <div class="card m-b-30">
+            <div class="card-body">
+                <h4 class="mt-0 header-title">修改xxx</h4>
+                <p class="text-muted m-b-30 font-14">----------------------------------------------------------------------------------------------------------------------------------------------------</p>
+                                            <input type="hidden" name="id" value="{$sys_role.id}" /><div class="form-group row">
+                                <label for="name" class="col-sm-2 col-form-label">name</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" placeholder="name" name="name" id="name"  value="{$sys_role.name}" />
+                                </div>
+                            </div>
+                        <div class="form-group row">
+                                <label for="status" class="col-sm-2 col-form-label">status</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" placeholder="status" name="status" id="status"  value="{$sys_role.status}" />
+                                </div>
+                            </div>
+                        <div class="form-group row">
+                                <label for="authstr" class="col-sm-2 col-form-label">authstr</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" placeholder="authstr" name="authstr" id="authstr"  value="{$sys_role.authstr}" />
+                                </div>
+                            </div>
+                        <div class="form-group row">
+                                <label for="authcode" class="col-sm-2 col-form-label">authcode</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" placeholder="authcode" name="authcode" id="authcode"  value="{$sys_role.authcode}" />
+                                </div>
+                            </div>
+                        <div class="form-group row">
+                                <label for="date" class="col-sm-2 col-form-label">date</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" placeholder="date" name="date" id="date"  value="{$sys_role.date}" />
+                                </div>
+                            </div>
+                                    </div>
+        </div>
+    </div> <!-- end col -->
+    <div class="form-group">
+        <div class="col-md-6 col-md-offset-2">
+            <input type="submit" value="提交" class="btn btn-warning" />
+            <button type="button" class="btn btn-primary" onclick="javascript:history.back(-1);">返回</button>
+        </div>
+    </div>
+</form></div>
+
+<script>
+$("#form1").ajaxForm({
+		dataType:'json',
+		clearForm:false,
+		beforeSerialize:function(){
+				if ($('#teacher_name').val() == '') {
+						layer.alert("人员名称不能为空!", {
+							icon: 2,
+							skin: 'layer-ext-moon'
+						})
+						return false;
+				}
+		},
+		success:function(data){
+				if (data.state == 100) {
+					layer.alert(data.msg, {
+						icon: 1,
+						skin: 'layer-ext-moon'
+					})
+					setTimeout(function(){window.location.reload();},2000);
+				} else {
+					layer.alert(data.msg, {
+						icon: 2,
+						skin: 'layer-ext-moon'
+					})
+
+				}
+		}
+});
+
+
+//$(".chzn-select").chosen();
+				//$('.chzn-select').on('click', function(e){
+				 // var target = $(e.target).find('input[type=radio]');
+				  //var which = parseInt(target.val());
+				  //if(which == 2) $('#form-field-select-4').addClass('tag-input-style');
+				  // else $('#form-field-select-4').removeClass('tag-input-style');
+				//});
+</script>

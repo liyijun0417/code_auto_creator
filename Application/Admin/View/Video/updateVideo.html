@@ -1,0 +1,249 @@
+
+<link rel="stylesheet" href="__PUBLIC__/assets/css/chosen.css" />
+<script src="__PUBLIC__/assets/js/chosen.jquery.min.js"></script>
+<style type="text/css">
+.fileinput-button input {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    opacity: 0;
+    -ms-filter: 'alpha(opacity=0)';
+    font-size: 200px;
+    direction: ltr;
+    cursor: pointer;
+}
+.fileinput-button {
+    position: relative;
+    overflow: hidden;
+}
+.span2{
+    padding: 2px;
+    border: 1px solid #DEDEDE;
+    margin-bottom: 5px;
+}
+.span2 p{
+    margin-top: 3px;
+    margin-bottom: 3px;
+}
+</style>
+	<div class="breadcrumbs" id="breadcrumbs">
+		<script type="text/javascript">
+			try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
+		</script>
+
+		<ul class="breadcrumb">
+			<li>
+				<i class="icon-home home-icon"></i>
+				<a href="{:U('Index/index')}">首页</a>
+			</li>
+			<li class="active">视频信息</li>
+		</ul><!-- .breadcrumb -->
+	</div>
+
+<form id="form1" class="form-horizontal" method="POST" action="{:U('video/updatevideo')}">
+
+	<div class="col-xs-12">
+	<div class="row">
+	<div class="col-xs-9" style="margin:0 auto;">
+
+  
+		<input type="hidden" id="video_id" name="video_id" value="{$data.video_id}"/>
+    <fieldset>
+      <div id="legend" class="">
+        <legend class="">{$data.video_name}--视频信息修改</legend>
+      </div>
+	  
+	  
+    <div class="control-group">
+	  <!-- Text input-->
+	  <label class="control-label" for="input01">视频名称</label>
+	  <div class="controls">
+		<input type="text" name="video_name" id="video_name" value="{$data.video_name}" placeholder="请输入视频名称" class="input-xlarge">
+
+	  </div>
+	</div>
+	
+
+	
+	<div class="control-group">
+          <!-- Select Basic -->
+          <label class="control-label">授课教师</label>
+          <div class="controls">
+            <select name="video_teacher" class="input-xlarge">
+              <volist name="teachers" id="vos2">
+				         <option value="{$vos2.teacher_id}" <if condition="$vos2['teacher_id'] eq $data['video_teacher']"> selected="selected"</if>>{$vos2.teacher_name}</option>
+              </volist>
+			  <option value="0" <if condition="$data['video_teacher'] eq 0"> selected="selected"</if>>无</option>
+						</select>
+          </div>
+        </div>
+	
+
+
+    <div class="control-group">
+          <!-- Select Basic -->
+          <label class="control-label">所属村组</label>
+          <div class="controls">
+            <select name="video_cat_id" class="chzn-select form-control input-xlarge">
+              <volist name="cats" id="vos">
+				         <option value="{$vos.cat_id}" <if condition="$vos['cat_id'] eq $data['video_cat_id']"> selected="selected"</if>>{$vos.cat_name}</option>
+              </volist>
+						</select>
+          </div>
+        </div>
+
+		<div class="control-group">
+			<div class="panel" id="uploadBox">
+			 <div class="panel-body">
+				<form class="mcit-dataform" id="data_form" method="post" action="__ACTION__">
+				<input type="hidden" id="pic" name="pic" value="{$data.video_image}">
+				<div class="panel-footer">    
+					<div class="panel-mcit">
+						<div class="col-xs-6">
+							<span class="btn btn-warning fileinput-button">
+								<i class="glyphicon glyphicon-plus"></i>
+								<span>上传课程封面</span>
+								<input id="fileupload" type="file" name="photo"></span>
+							<br>
+							<br>
+							<div id="progress" class="progress mcit-progress">
+								<div class="progress-bar"></div>
+							</div>
+						</div>
+
+						<div class="clearfix"></div>
+
+						<div class="col-xs-6" style="margin-left: 20px;">
+							<div class="panel panel-mcit">
+								<div class="panel-heading">
+									<h5 class="panel-title">封面预览</h5>
+								</div>
+								<div class="panel-body">
+									<img src="__PUBLIC__/data/img/{$data.video_image}" id="pic_show" class="img-responsive">
+								</div>
+							</div>
+						</div>
+
+						<div class="clearfix"></div>
+
+					</div>
+					</div>
+					</form>
+				</div>
+			</div>
+		</div>
+
+        <div class="control-group">
+          <!-- Text input-->
+          <label class="control-label" for="input01">视频简介</label>
+          <div class="controls">
+            <textarea name="video_brief" style="width:500px;height:200px;">{$data.video_brief}</textarea>
+            <p class="help-block"></p>
+          </div>
+        </div>
+		
+		<div class="control-group">
+          <!-- Text input-->
+          <label class="control-label" for="input01">详细内容</label>
+          <div class="controls">
+            <textarea name="video_content" id="myEditor" style="width:500px;height:200px;">{$data.video_content}</textarea>
+            <p class="help-block"></p>
+          </div>
+        </div>
+    </fieldset>
+
+	</br>
+	</br>
+		<button type="submit" class="btn btn-sm btn-warning">修改</button>
+		<button type="button" class="btn btn-sm" onclick="javascript:history.back(-1);">返回</button>
+  
+
+</div>
+</div>
+</div>
+</form>
+
+<import file="js.jquery#ui#widget" />
+<import file="js.jquery#iframe-transport" />
+<import file="js.jquery#fileupload" />
+<script>
+	var url = "__URL__/uploadImg";
+	$('#fileupload').fileupload({
+		url: url,
+		dataType: 'json',
+		done: function (e, data) {
+			if(data.result.state == 1){
+				layer.alert(data.result.msg, {
+					icon: 1,
+					skin: 'layer-ext-moon'
+				})
+				$("#pic_show").attr("src","__PUBLIC__/data/img/"+data.result.url);
+				$("#pic").val(data.result.url);
+			}else{
+				layer.alert(data.result.msg, {
+					icon: 2,
+					skin: 'layer-ext-moon'
+				})
+				
+			}
+		},
+		progressall: function (e, data) {
+			var progress = parseInt(data.loaded / data.total * 100, 10);
+			$('#progress .progress-bar').css(
+				'width',
+				progress + '%'
+			);
+		}
+	}).prop('disabled', !$.support.fileInput)
+		.parent().addClass($.support.fileInput ? undefined : 'disabled');
+
+</script>
+<import file="js.ueditor_mcit.ueditor#config" />
+<import file="js.ueditor_mcit.ueditor#all" />
+<script>
+var ue = UE.getEditor('myEditor');
+</script>
+
+<script>
+$("#form1").ajaxForm({
+		dataType:'json',
+		clearForm:false,
+		beforeSerialize:function(){
+				if ($('#video_name').val() == '') {
+						layer.alert("视频名称不能为空!", {
+							icon: 2,
+							skin: 'layer-ext-moon'
+						})
+						return false;
+				}
+		},
+		success:function(data){
+				if (data.state == 100) {
+					layer.alert(data.msg, {
+						icon: 1,
+						skin: 'layer-ext-moon'
+					})
+					setTimeout(function(){window.location.reload();},2000);
+				} else {
+					layer.alert(data.msg, {
+						icon: 2,
+						skin: 'layer-ext-moon'
+					})
+
+				}
+		}
+});
+
+
+
+
+
+$(".chzn-select").chosen();
+				$('.chzn-select').on('click', function(e){
+				  var target = $(e.target).find('input[type=radio]');
+				  var which = parseInt(target.val());
+				  if(which == 2) $('#form-field-select-4').addClass('tag-input-style');
+				   else $('#form-field-select-4').removeClass('tag-input-style');
+				});	
+</script>

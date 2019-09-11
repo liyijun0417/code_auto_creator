@@ -1,0 +1,36 @@
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        <volist name="tableInfoArray" id="tableInfo">
+            <th><center>{$tableInfo[$columnNameKey]}</center></th>
+        </volist>
+        <th><center>操作</center></th>
+    </tr>
+    </thead>
+    <tbody>
+    <literal><notempty name="</literal>{$tableName}<literal>List"></literal>
+    <literal><volist name="</literal>{$tableName}<literal>List" id="vo"></literal>
+    <tr>
+        <volist name="tableInfoArray" id="tableInfo">
+            <td><literal>{$vo.</literal>{$tableInfo[$columnNameKey]}}</td>
+        </volist>
+        <td>
+            <div class="button-items">
+              <a class="btn btn-sm btn-success" href="<literal>{:U(MODULE_NAME.'/</literal>{$TableName}<literal>/edit/id/'.$vo[id])}</literal>"><i class="mdi mdi-table-edit"></i>编辑</a>
+              <a class="btn btn-sm btn-danger del" href="javascript:void(0);" data-id="<literal>{$vo[id]}</literal>"><i class="mdi mdi-delete-forever"></i>删除</a>
+            </div>
+        </td>
+    <tr>
+        <literal></volist></literal>
+        <literal><else/></literal>
+        <td colspan="99" style="text-align:center;background: #cc213196;color: #fff;" class="danger"> <strong><i class="fa fa-meh-o"></i>
+            &nbsp;&nbsp;当前条件下没有数据</strong>
+        </td>
+        <literal> </notempty></literal>
+</table>
+<literal>
+    <td colspan="99" style="text-align:center">
+        <ul class="pagination">{$page}</ul>
+    </td>
+</literal>
+

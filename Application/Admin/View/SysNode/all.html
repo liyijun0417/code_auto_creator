@@ -1,0 +1,289 @@
+<div class="row" style="margin-top: 10px;">
+    <div class="col-lg-12">
+        <div class="card m-b-30">
+            <div class="card-body">
+                <h4 class="mt-0 header-title">sys_node列表</h4>
+                <div class="col-12">
+                    <div class="card m-b-30">
+                        <div class="card-body">
+                            <div class="general-label">
+                                <form class="form-inline" action="{:U(MODULE_NAME.'/'.CONTROLLER_NAME.'/all')}" role="form">
+                                    <div class="form-group">
+                                        <label class="sr-only" for="exampleInputEmail2">搜索条件1</label>
+                                        <input type="text" name="keyword1" class="form-control ml-2" id="exampleInputEmail2" placeholder="搜索条件1">
+                                    </div>
+
+                                    <div class="form-group m-l-10">
+                                        <label class="sr-only" for="exampleInputPassword2">搜索条件2</label>
+                                        <input type="text" name="keyword2" class="form-control ml-2" id="exampleInputPassword2" placeholder="搜索条件2">
+                                    </div>
+
+                                    <button type="submit" class="btn btn-sm btn-success ml-2"><i class="mdi mdi-magnify"></i>搜索</button>
+                                    &nbsp;
+                                    <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#myModal" style="float:right;"><i class="mdi mdi-plus-circle"></i>添加一个新sys_node</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <table class="table table-bordered">
+    <thead>
+    <tr>
+        <th><center>id</center></th><th><center>name</center></th><th><center>title</center></th><th><center>status</center></th><th><center>level</center></th><th><center>module</center></th><th><center>controller</center></th><th><center>action</center></th><th><center>code</center></th>        <th><center>操作</center></th>
+    </tr>
+    </thead>
+    <tbody>
+    <notempty name="sys_nodeList">
+    <volist name="sys_nodeList" id="vo">
+    <tr>
+        <td>{$vo.id}</td><td>{$vo.name}</td><td>{$vo.title}</td><td>{$vo.status}</td><td>{$vo.level}</td><td>{$vo.module}</td><td>{$vo.controller}</td><td>{$vo.action}</td><td>{$vo.code}</td>        <td>
+            <div class="button-items">
+              <a class="btn btn-sm btn-success" href="{:U(MODULE_NAME.'/SysNode/edit/id/'.$vo[id])}"><i class="mdi mdi-table-edit"></i>编辑</a>
+              <a class="btn btn-sm btn-danger del" href="javascript:void(0);" data-id="{$vo[id]}"><i class="mdi mdi-delete-forever"></i>删除</a>
+            </div>
+        </td>
+    <tr>
+        </volist>
+        <else/>
+        <td colspan="99" style="text-align:center;background: #cc213196;color: #fff;" class="danger"> <strong><i class="fa fa-meh-o"></i>
+            &nbsp;&nbsp;当前条件下没有数据</strong>
+        </td>
+         </notempty>
+</table>
+
+    <td colspan="99" style="text-align:center">
+        <ul class="pagination">{$page}</ul>
+    </td>            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!--模态框-->
+<!-- Modal -->
+<form role="form" id="form-signins" action="{:U(MODULE_NAME.'/'.CONTROLLER_NAME.'/add')}" method="POST">
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h6 class="modal-title" id="myModalLabel">添加</h4>
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                                <label class="col-md-6 control-label" for="name">name</label>
+                                <div class="col-md-12">
+                                    <input type="text" class="form-control" placeholder="name"
+                                           name="name" id="name" />
+                                </div>
+                            </div><div class="form-group">
+                                <label class="col-md-6 control-label" for="title">title</label>
+                                <div class="col-md-12">
+                                    <input type="text" class="form-control" placeholder="title"
+                                           name="title" id="title" />
+                                </div>
+                            </div><div class="form-group">
+                                <label class="col-md-6 control-label" for="status">status</label>
+                                <div class="col-md-12">
+                                    <input type="text" class="form-control" placeholder="status"
+                                           name="status" id="status" />
+                                </div>
+                            </div><div class="form-group">
+                                <label class="col-md-6 control-label" for="level">level</label>
+                                <div class="col-md-12">
+                                    <input type="text" class="form-control" placeholder="level"
+                                           name="level" id="level" />
+                                </div>
+                            </div><div class="form-group">
+                                <label class="col-md-6 control-label" for="module">module</label>
+                                <div class="col-md-12">
+                                    <input type="text" class="form-control" placeholder="module"
+                                           name="module" id="module" />
+                                </div>
+                            </div><div class="form-group">
+                                <label class="col-md-6 control-label" for="controller">controller</label>
+                                <div class="col-md-12">
+                                    <input type="text" class="form-control" placeholder="controller"
+                                           name="controller" id="controller" />
+                                </div>
+                            </div><div class="form-group">
+                                <label class="col-md-6 control-label" for="action">action</label>
+                                <div class="col-md-12">
+                                    <input type="text" class="form-control" placeholder="action"
+                                           name="action" id="action" />
+                                </div>
+                            </div><div class="form-group">
+                                <label class="col-md-6 control-label" for="code">code</label>
+                                <div class="col-md-12">
+                                    <input type="text" class="form-control" placeholder="code"
+                                           name="code" id="code" />
+                                </div>
+                            </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">添加</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<!-------->
+
+<script type="text/javascript" src="/auto/Public/js/jquery.ui.widget.js"></script>
+<script type="text/javascript" src="/auto/Public/js/jquery.iframe-transport.js"></script>
+<script type="text/javascript" src="/auto/Public/js/jquery.fileupload.js"></script>
+<script>
+    var url = "/auto/index.php/TPH/CRUD/uploadImg";
+    $('#fileupload').fileupload({
+        url: url,
+        dataType: 'json',
+        done: function (e, data) {
+            if(data.result.state == 1){
+                layer.alert(data.result.msg, {
+                    icon: 1,
+                    skin: 'layer-ext-moon'
+                })
+                $("#pic_show").attr("src","/auto/Public/data/img/"+data.result.url);
+                $("#pic").val(data.result.url);
+            }else{
+                layer.alert(data.result.msg, {
+                    icon: 2,
+                    skin: 'layer-ext-moon'
+                })
+
+            }
+        },
+        progressall: function (e, data) {
+            var progress = parseInt(data.loaded / data.total * 100, 10);
+            $('#progress .progress-bar').css(
+                    'width',
+                    progress + '%'
+            );
+        }
+    }).prop('disabled', !$.support.fileInput)
+            .parent().addClass($.support.fileInput ? undefined : 'disabled');
+
+</script>
+
+<script>
+
+
+    $("#form-signins").ajaxForm({
+        dataType:'json',
+        clearForm:false,
+        beforeSerialize:function(){
+            if ($('#teacher_names').val() == '' || $('#teacher_cat_id').val() == '') {
+                layer.alert("必须输入人员名称,并选择人员的部门!", {
+                    icon: 2,
+                    skin: 'layer-ext-moon'
+                })
+                return false;
+            }
+        },
+
+        success:function(data){
+            if (data.state == 100) {
+                layer.alert(data.msg, {
+                    icon: 1,
+                    skin: 'layer-ext-moon'
+                })
+                setTimeout(function(){window.location.reload();},2000);
+            } else {
+                layer.alert(data.msg, {
+                    icon: 2,
+                    skin: 'layer-ext-moon'
+                })
+
+            }
+        }
+    });
+
+
+
+    $(".del").click(function(){
+        var obj = $(this);
+        var id = $(this).attr("data-id");
+
+        layer.confirm('确认要删除本条记录吗 ？', {
+            btn: ['确认','取消'] //按钮
+        }, function(){
+            $.ajax({
+                type: "POST",
+                url:  "{:U(MODULE_NAME.'/'.CONTROLLER_NAME.'/delete')}",
+                data: {id:id},
+                dataType: "json",
+                success: function(data){
+                    if(data.state==100){
+                        layer.msg(data.msg, {icon: 1});
+                        obj.parent().parent().parent().remove();
+                    }else{
+                        layer.msg(data.msg, {icon: 2});
+                    }
+                }
+            });
+        }, function(){
+
+        });
+
+
+    })
+
+
+
+
+
+
+
+    $(".check-btn").click(function(){
+        var obj = $(this);
+        var teacher_id = $(this).attr("data-id");
+        var teacher_type = $(this).attr("data-type");
+        if(teacher_type == 0){
+            teacher_type = 1;
+        }else{
+            teacher_type = 0;
+        }
+        layer.confirm('确认要进行该操作 ？', {
+            btn: ['确认','取消'] //按钮
+        }, function(){
+            $.ajax({
+                type: "POST",
+                url:  '/auto/index.php/TPH/Teacher/TeacherType.html',
+                data: {teacher_id:teacher_id,teacher_type:teacher_type},
+                dataType: "json",
+                success: function(data){
+                    if(data.state==100){
+                        layer.msg(data.msg, {icon: 1});
+                        if(teacher_type==0){
+                            obj.removeClass("btn-warning");
+                            obj.addClass("btn-primary");
+                            obj.attr('data-type',0);
+                            obj.children('span').text('已审核');
+                        }else{
+                            obj.removeClass("btn-primary");
+                            obj.addClass("btn-warning");
+                            obj.attr('data-type','1');
+                            obj.children('span').text('未审核');
+                        }
+
+                    }else{
+                        layer.msg(data.msg, {icon: 2});
+                    }
+                }
+            });
+        }, function(){
+
+        });
+
+
+    })
+
+
+
+
+
+</script>

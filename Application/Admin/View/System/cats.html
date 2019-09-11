@@ -1,0 +1,510 @@
+
+	<div class="breadcrumbs" id="breadcrumbs">
+		<script type="text/javascript">
+			try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
+		</script>
+
+		<ul class="breadcrumb">
+			<li>
+				<i class="icon-home home-icon"></i>
+				<a href="{:U('Index/index')}">首页</a>
+			</li>
+			<li class="active">部门管理</li>
+		</ul><!-- .breadcrumb -->
+
+		<!-- <div class="nav-search" id="nav-search">
+			<form class="form-search">
+				<span class="input-icon">
+					<input type="text" placeholder="Search ..." class="nav-search-input" id="nav-search-input" autocomplete="off" />
+					<i class="icon-search nav-search-icon"></i>
+				</span>
+			</form>
+		</div><!-- #nav-search -->
+	</div>
+	
+
+	<div class="page-content">
+		<div class="page-header">
+			<h1>
+					部门列表
+			</h1>
+		</div><!-- /.page-header -->
+
+		<div class="row">
+			<div class="col-xs-12">
+				<!-- PAGE CONTENT BEGINS -->
+				<div class="row">
+				<div class="col-xs-12 col-sm-12">
+						<div class="widget-box">
+							<div class="widget-header">
+								<h4>新增部门</h4>
+
+								<span class="widget-toolbar">
+
+									<a href="#" data-action="collapse">
+										<i class="icon-chevron-up"></i>
+									</a>
+
+									<a href="#" data-action="close">
+										<i class="icon-remove"></i>
+									</a>
+								</span>
+							</div>
+
+							<div class="widget-body">
+								<div class="widget-main">
+									<form class="form-inline" role="form" id="form-signin" action="{:U('System/addCat')}" method="POST">
+									  <div class="form-group">
+									    <label class="sr-only">部门名</label>
+									    <input type="text" name="cat_name" class="form-control" id="cat_name" placeholder="请输入部门的名称">
+									  </div>
+									  <button type="submit" class="btn btn-sm btn-warning">新增</button>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+
+				<div class="row">
+					<div class="col-xs-12">
+						<div class="table-responsive">
+							<table id="sample-table-1" class="table table-striped table-bordered table-hover">
+								<thead>
+									<tr>
+										<!-- <th class="center">
+											<label>
+												<input type="checkbox" class="ace" />
+												<span class="lbl"></span>
+											</label>
+										</th> -->
+										<th>ID</th>
+										<th>排序</th>
+										<th>部门名称</th>
+										<th>操作</th>
+									</tr>
+								</thead>
+
+								<tbody id="DataTableContent">
+									<tr>
+										<!-- <td class="center">
+											<label>
+												<input type="checkbox" class="ace" />
+												<span class="lbl"></span>
+											</label>
+										</td> -->
+										<empty name="result">
+											<td colspan="99" style="text-align:center" class="danger"> <strong><i class="fa fa-meh-o"></i>
+													&nbsp;&nbsp;当前条件下没有数据</strong>
+											</td>
+											<else />
+											<volist name="result" id="data">
+										<tr>
+										<td>{$data.cat_id}</td>
+										<td>
+											<span>{$data.px}</span><input value="{$data.px}" style="display:none;"/>
+										</td>
+										<td>
+											<span>{$data.cat_name}</span><input value="{$data.cat_name}" style="display:none;"/>
+										</td>
+										
+										<td>
+												<div class="visible-md visible-lg hidden-sm hidden-xs btn-group">
+													<!--<button class="btn btn-sm btn-primary children">
+														<i class="icon-cogs bigger-110"></i>
+														<span class="bigger-110 no-text-shadow">部门列表</span>
+													</button>-->
+													
+													
+													
+													<button class="btn btn-sm btn-success update_it" data-id="{$data.cat_id}">
+														<i class="icon-edit bigger-110"></i>
+														<span class="bigger-110 no-text-shadow">修改</span>
+													</button>
+
+
+														<button class="btn btn-sm btn-info save" data-id="{$data.cat_id}" style="display:none;">
+															<i class="icon-edit bigger-110"></i>
+															<span class="bigger-110 no-text-shadow">保存</span>
+														</button>
+
+														<button class="btn btn-sm btn-default cance" data-id="{$data.cat_id}" style="display:none;">
+															<i class="icon-edit bigger-110"></i>
+															<span class="bigger-110 no-text-shadow">取消</span>
+														</button>
+
+
+
+													<button class="btn btn-sm btn-danger del_it" data-id="{$data.cat_id}">
+														<i class="icon-info-sign bigger-110"></i>
+														<span class="bigger-110 no-text-shadow">删除</span>
+													</button>
+
+												</div>
+											</td>
+										</tr>
+										<tr class="mcit_datail" id="mcit_datail{$data.id}" style="display:none">
+											<td colspan="4" class="bs-example-bg-classes">
+												<div class="col-xs-6">
+													<div class="input-group">
+														<input type="text" class="form-control category2_input" name="category2">
+														<span class="input-group-btn">
+														<a class="btn btn-pink add_category2 btn-sm" data-id="{$data.cat_id}"><i class="fa fa-plus"></i>&nbsp;新增{$data.cat_name}下的村</a>
+														</span>
+														<input type="hidden" name="category" value="{$data.cat_id}">
+													</div>
+												</div>
+												<div class="clearfix">
+												</div>
+												<div class="col-xs-12">
+													<table class="table table-bordered " style="background-color: #ddd;border: 1px solid #fff;">
+													<tbody id="DataTableContent1">
+													<tr class="c2_list">
+														<th width="20%">
+															排序
+														</th>
+														<th width="30%">
+															村名
+														</th>
+														
+														<th>
+															操作
+														</th>
+													</tr>
+													<volist name="data['c_category']" id="vo">
+													<tr class="tr-school">
+															<td>
+																<p class="school_text">
+																	{$vo.px}
+																</p>
+																<div class="col-xs-6" style="display:none">
+																	<div class="input-group">
+																		<input type="text" class="form-control input-sm px" value="{$vo.px}" name="px">
+																		<span class="input-group-btn">
+																		<a class="btn btn-info btn-sm goto_px" data-old="{$vo.px}" data-id="{$vo.cat_id}"><i class="fa fa-refresh"></i>&nbsp;保存</a>
+																		</span>
+																	</div>
+																</div>
+															</td>
+															<td>
+																<p class="school_text">
+																	{$vo.cat_name}
+																</p>
+																<div class="col-xs-6" style="display:none">
+																	<div class="input-group">
+																		<input type="text" class="form-control input-sm school_input" value="{$vo.cat_name}" name="category">
+																		<span class="input-group-btn">
+																		<a class="btn btn-info btn-sm goto_edit" data-old="{$vo.cat_name}" data-id="{$vo.cat_id}"><i class="fa fa-refresh"></i>&nbsp;保存</a>
+																		</span>
+																	</div>
+																</div>
+															</td>
+															<td>
+																<a class="btn btn-sm btn-warning editCategory"><i class="fa fa-edit"></i>&nbsp;修改</a>
+																
+																<a class="btn btn-sm btn-success" href="{:U('System/section',array('cat_id'=>$vo['cat_id']))}">课程安排</a>
+																
+																<button class="btn btn-sm btn-danger del_it" data-id="{$vo.cat_id}">
+																	<i class="icon-info-sign bigger-110"></i>
+																	<span class="bigger-110 no-text-shadow">删除</span>
+																</button>
+																<!-- <a class="btn btn-sm btn-danger delCategory" data-id="{$data.id}"><i class="fa fa-trash-o"></i>&nbsp;删除</a> -->
+															</td>
+														</tr>
+                            </volist>
+                            </tbody>
+                            </table>
+                        </div>
+                    </td>
+                </tr>
+											</volist>
+										</empty>
+
+									<tr>
+											<td colspan="99" style="text-align:center">
+													<ul class="pagination">{$pageView}</ul>
+											</td>
+									</tr>
+
+
+								</tbody>
+							</table>
+						</div><!-- /.table-responsive -->
+					</div><!-- /span -->
+				</div><!-- /row -->
+
+			
+
+
+			<script>
+			
+					 $("#DataTableContent").on("click",'.children',function(){
+						$(this).parents('tr').next().fadeToggle();
+					});
+					
+					
+					$("#DataTableContent").on("click",'.add_category2',function(){
+						var category2  = $(this).parent().prev().val();
+						$(this).parent().prev().val('');
+						var category = $(this).parent().next().val();
+						addMajorObj = $(this).parents('.col-xs-6').next().next().find('.c2_list');
+						//alert(category);
+						if( category2=='' ){
+							layer.alert("请输入村名称", {
+								icon: 2,
+								skin: 'layer-ext-moon'
+							})
+							return false;
+						}else{
+							$.ajax({
+								type: "POST",
+								url:  '{:U("System/addCat2")}',
+								data: {category:category,category2:category2},
+								dataType: "json",
+								success: function(data){
+									if(data.state==100){
+										layer.alert(data.msg, {
+											icon: 1,
+											skin: 'layer-ext-moon'
+										});
+										
+										var addStr='<tr class="tr-school"><td><p class="school_text">'+data.cat_name+'</p><div class="col-xs-6" style="display:none"><div class="input-group"><input type="text" class="form-control input-sm school_input" value="'+data.cat_name+'" name="category"> <span class="input-group-btn"><a class="btn btn-info btn-sm goto_edit" data-old="'+data.cat_name+'" data-id="'+data.cat_id+'"><i class="fa fa-refresh"></i>&nbsp;保存</a></span></div></div></td><td><a class="btn btn-sm btn-warning editCategory"><i class="fa fa-edit"></i>&nbsp;修改</a></td></tr>';
+										addMajorObj.after(addStr);
+									}else{
+										layer.alert(data.msg, {
+												icon: 2,
+												skin: 'layer-ext-moon'
+											})
+									}
+								}
+							});
+						}
+					});
+					
+					 $("#DataTableContent").on("click",'.editCategory',function(){
+						var obj  = $(this).parent().prev();
+						obj.find('.school_text').hide();
+						obj.find('.col-xs-6').show();
+						
+						obj.prev().find('.school_text').hide();
+						obj.prev().find('.col-xs-6').show();
+					});
+					
+					$("#DataTableContent").on("click",'.goto_edit',function(){
+						editObj = $(this).parents('.col-xs-6'); 
+						var category = $(this).parent().prev().val();
+						var id       = $(this).attr('data-id');
+						var old      = $(this).attr('data-old');
+
+						if(old == category){
+							layer.alert('保存成功', {
+								icon: 1,
+								skin: 'layer-ext-moon'
+							});
+							editObj.hide();
+							editObj.prev().show();
+						}else{
+							$.ajax({
+								type: "POST",
+								url:  '{:U("System/updateCatName")}',
+								data: {id:id,cat_name:category},
+								dataType: "json",
+								success: function(data){
+									if(data.state==100){
+										layer.alert(data.msg, {
+											icon: 1,
+											skin: 'layer-ext-moon'
+										});
+										editObj.hide();
+										editObj.find('.goto_edit').attr('data-old',data.cat_name);
+										editObj.prev().html(data.cat_name);
+										editObj.prev().show();
+									}else{
+										layer.alert(data.msg, {
+											icon: 2,
+											skin: 'layer-ext-moon'
+										});
+									}
+								}
+							});
+						}
+					});
+					
+					
+					$("#DataTableContent").on("click",'.goto_px',function(){
+						editObj = $(this).parents('.col-xs-6'); 
+						var px = $(this).parent().prev().val();
+						var id       = $(this).attr('data-id');
+						var old      = $(this).attr('data-old');
+
+						if(old == px){
+							layer.alert('保存成功', {
+								icon: 1,
+								skin: 'layer-ext-moon'
+							});
+							editObj.hide();
+							editObj.prev().show();
+						}else{
+							$.ajax({
+								type: "POST",
+								url:  '{:U("System/updatePx")}',
+								data: {id:id,px:px},
+								dataType: "json",
+								success: function(data){
+									if(data.state==100){
+										layer.alert(data.msg, {
+											icon: 1,
+											skin: 'layer-ext-moon'
+										});
+										editObj.hide();
+										editObj.find('.goto_px').attr('data-old',data.px);
+										editObj.prev().html(data.px);
+										editObj.prev().show();
+									}else{
+										layer.alert(data.msg, {
+											icon: 2,
+											skin: 'layer-ext-moon'
+										});
+									}
+								}
+							});
+						}
+					});
+					
+	
+					$("#form-signin").ajaxForm({
+							dataType:'json',
+							clearForm:false,
+							beforeSerialize:function(){
+									if ($('#cat_name').val() == '') {
+											layer.alert("必须输入部门名称", {
+												icon: 2,
+												skin: 'layer-ext-moon'
+											})
+											return false;
+									}
+
+							},
+							success:function(data){
+									if (data.state == 100) {
+										layer.alert(data.msg, {
+											icon: 1,
+											skin: 'layer-ext-moon'
+										})
+										setTimeout(function(){window.location.reload();},2000);
+									} else {
+										layer.alert(data.msg, {
+											icon: 2,
+											skin: 'layer-ext-moon'
+										})
+
+
+									}
+							}
+					});
+
+					
+					
+
+					$(document).on("click",'.del_it',function(){
+
+			        var id  = $(this).attr("data-id");
+							layer.confirm('确定要删除这个部门吗 ？', {
+							  btn: ['删除','取消'] //按钮
+							}, function(){
+								 $.ajax({
+										type: "POST",
+										url:  '{:U("System/del_cats")}',
+								 		data: {id:id},
+								 		dataType: "json",
+								 		success: function(data){
+								 				if(data.state==100){
+													layer.msg('删除成功!', {icon: 1});
+														location.reload(true);
+												}else{
+								 						layer.msg(data.msg, {icon: 2});
+								 				}
+								 		}
+								});
+								//layer.msg('第一版本暂时没开放删除功能，因为删除后该部门下的视频就不知道该归属于哪个部门了。', {icon: 2});
+
+							}, function(){
+
+							});
+						});
+
+
+
+						$(".update_it").click(function(){
+							
+
+
+							$(this).parents().prev().children('input').show();
+							$(this).parents().prev().children('span').hide();
+							
+							$(this).parents().prev().prev().children('input').show();
+							$(this).parents().prev().prev().children('span').hide();
+
+							$(this).hide();
+							$(this).next().show();
+							$(this).next().next().show();
+						});
+
+						$(".cance").click(function(){
+							$(this).hide();
+							$(this).prev().hide();
+							$(this).prev().prev().show();
+							
+							$(this).parents().prev().children('input').hide();
+							$(this).parents().prev().children('span').show();
+							
+							$(this).parents().prev().prev().children('input').hide();
+							$(this).parents().prev().prev().children('span').show();
+						});
+
+						$(".save").click(function(){
+							var cat_name = $(this).parents().prev().children('input').val();
+							var px = $(this).parents().prev().prev().children('input').val();
+							
+							var id = $(this).attr('data-id');
+
+							if (cat_name == '') {
+									layer.alert("请输入要修改的部门名称!", {
+										icon: 2,
+										skin: 'layer-ext-moon'
+									})
+									return false;
+							}
+
+
+							$.ajax({
+									type: "POST",
+									url:  '{:U("System/updateCats")}',
+									data: {id:id,cat_name:cat_name,px:px},
+									dataType: "json",
+									success: function(data){
+											if(data.state==100){
+													layer.msg(data.msg, {icon: 1});
+													location.reload(true);
+											}else{
+													layer.msg(data.msg, {icon: 2});
+											}
+									}
+							});
+
+
+						})
+
+
+
+
+
+
+
+
+
+
+
+			</script>

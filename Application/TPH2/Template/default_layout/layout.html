@@ -1,0 +1,183 @@
+<include file="/Template/default_layout/Public/header"/>
+
+
+	<body>
+		<div class="navbar navbar-default" id="navbar">
+			<script type="text/javascript">
+				try{ace.settings.check('navbar' , 'fixed')}catch(e){}
+			</script>
+
+			<div class="navbar-container" id="navbar-container">
+				<div class="navbar-header pull-left">
+					<a href="#" class="navbar-brand">
+						<strong style="font-family:微软雅黑;font-size:22px;color:#fff;">
+							<a href="{:U('Index/index')}"><img src="__PUBLIC__/img/logo.png"/></a>
+
+						</strong>
+					</a><!-- /.brand -->
+				</div><!-- /.navbar-header -->
+
+				<div class="navbar-header pull-right" role="navigation">
+					<ul class="nav ace-nav">
+						<li class="light-blue">
+							<a data-toggle="dropdown" href="#" class="dropdown-toggle">
+
+
+									<b>{$Think.session.name}</b>
+									<i class="icon-caret-down"></i>
+
+
+
+							</a>
+
+							<ul class="user-menu pull-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
+								<!-- <li>
+									<a href="#">
+										<i class="icon-cog"></i>
+										设置
+									</a>
+								</li>
+
+								<li>
+									<a href="#">
+										<i class="icon-user"></i>
+										个人资料
+									</a>
+								</li> -->
+
+								<!-- <li class="divider"></li> -->
+
+								<li>
+									<a href="{:U('Login/logout')}">
+										<i class="icon-off"></i>
+										退出
+									</a>
+								</li>
+							</ul>
+						</li>
+					</ul><!-- /.ace-nav -->
+				</div><!-- /.navbar-header -->
+			</div><!-- /.container -->
+		</div>
+
+		<div class="main-container" id="main-container">
+			<script type="text/javascript">
+				try{ace.settings.check('main-container' , 'fixed')}catch(e){}
+			</script>
+
+			<div class="main-container-inner">
+				<a class="menu-toggler" id="menu-toggler" href="#">
+					<span class="menu-text"></span>
+				</a>
+
+				<div class="sidebar" id="sidebar">
+					<script type="text/javascript">
+						try{ace.settings.check('sidebar' , 'fixed')}catch(e){}
+					</script>
+
+
+
+					<ul class="nav nav-list">
+						<li>
+							<a href="{:U('index/index')}">
+								<i class="icon-dashboard"></i>
+								<span class="menu-text"> 控制台 </span>
+							</a>
+						</li>
+
+						
+						<li <if condition="(CONTROLLER_NAME eq Teacher) AND (ACTION_NAME eq index)">class="active"</if>>
+							<a href="{:U(('Teacher/index'))}" <if condition="(CONTROLLER_NAME eq Teacher) AND (ACTION_NAME eq index)">class="active"</if>>
+								<i class="icon-double-angle-right"></i>
+								人员管理
+							</a>
+						</li>
+						
+						<li <if condition="(CONTROLLER_NAME eq System) AND (ACTION_NAME eq total)">class="active"</if>>
+							<a href="{:U(('system/total?type=hours'))}" <if condition="(CONTROLLER_NAME eq System) AND (ACTION_NAME eq total)">class="active"</if>>
+								<i class="icon-double-angle-right"></i>
+								考勤统计
+							</a>
+						</li>
+						
+						<li <if condition="(CONTROLLER_NAME eq System) AND (ACTION_NAME eq checklist)">class="active"</if>>
+							<a href="{:U(('system/checklist'))}" <if condition="(CONTROLLER_NAME eq System) AND (ACTION_NAME eq checklist)">class="active"</if>>
+								<i class="icon-double-angle-right"></i>
+								巡查日志
+							</a>
+						</li>
+						
+						<li <if condition="(CONTROLLER_NAME eq System) AND (ACTION_NAME eq recovery)">class="active"</if>>
+							<a href="{:U(('System/recovery'))}" <if condition="(CONTROLLER_NAME eq System) AND (ACTION_NAME eq recovery)">class="active"</if>>
+								<i class="icon-double-angle-right"></i>
+								考勤记录
+							</a>
+						</li>
+						
+						<li <if condition="(CONTROLLER_NAME eq System) AND (ACTION_NAME eq vocation)">class="active"</if>>
+							<a href="{:U(('System/vocation'))}" <if condition="(CONTROLLER_NAME eq System) AND (ACTION_NAME eq vocation)">class="active"</if>>
+								<i class="icon-double-angle-right"></i>
+								请假统计
+							</a>
+						</li>
+
+
+
+						<li <if condition="(CONTROLLER_NAME eq System)">class="open"</if>>
+							<a href="#" class="dropdown-toggle">
+								<i class="icon-cogs"></i>
+								<span class="menu-text">设置 </span>
+
+								<b class="arrow icon-angle-down"></b>
+							</a>
+
+							<ul class="submenu" <if condition="(CONTROLLER_NAME eq System)">style="display:block;"</if>>
+								<li <if condition="(CONTROLLER_NAME eq System) AND (ACTION_NAME eq index)">class="active"</if>>
+									<a href="{:U(('system/index'))}" <if condition="(CONTROLLER_NAME eq System) AND (ACTION_NAME eq index)">class="active"</if>>
+										<i class="icon-double-angle-right"></i>
+								 		管理员管理
+									</a>
+								</li>
+
+								<li <if condition="(CONTROLLER_NAME eq System) AND (ACTION_NAME eq cats)">class="active"</if>>
+									<a href="{:U(('System/cats'))}" <if condition="(CONTROLLER_NAME eq system) AND (ACTION_NAME eq cats)">class="active"</if>>
+										<i class="icon-double-angle-right"></i>
+										部门管理
+									</a>
+								</li>
+								
+								<li <if condition="(CONTROLLER_NAME eq System) AND (ACTION_NAME eq action)">class="active"</if>>
+									<a href="{:U(('System/action'))}" <if condition="(CONTROLLER_NAME eq system) AND (ACTION_NAME eq action)">class="active"</if>>
+										<i class="icon-double-angle-right"></i>
+										行为管理
+									</a>
+								</li>
+							</ul>
+						</li>
+
+
+						<!--<li>
+							<a href="{:U('Message/index')}">
+								<i class="icon-comment-alt"></i>
+								<span class="menu-text">用户留言</span>
+							</a>
+						</li>-->
+
+
+					</ul><!-- /.nav-list -->
+
+
+
+				<div class="sidebar-collapse" id="sidebar-collapse">
+					<i class="icon-double-angle-left" data-icon1="icon-double-angle-left" data-icon2="icon-double-angle-right"></i>
+				</div>
+
+				<script type="text/javascript">
+					try{ace.settings.check('sidebar' , 'collapsed')}catch(e){}
+				</script>
+			</div>
+
+
+      <div class="main-content">{__CONTENT__}</div>
+
+      <include file="/Template/default_layout/Public/footer" />

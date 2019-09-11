@@ -1,0 +1,81 @@
+
+	<div class="breadcrumbs" id="breadcrumbs">
+		<script type="text/javascript">
+			try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
+		</script>
+
+		<ul class="breadcrumb">
+			<li>
+				<i class="icon-home home-icon"></i>
+				<a href="{:U('Index/index')}">首页</a>
+			</li>
+			<li class="active">管理员列表</li>
+		</ul><!-- .breadcrumb -->
+
+		<!-- <div class="nav-search" id="nav-search">
+			<form class="form-search">
+				<span class="input-icon">
+					<input type="text" placeholder="Search ..." class="nav-search-input" id="nav-search-input" autocomplete="off" />
+					<i class="icon-search nav-search-icon"></i>
+				</span>
+			</form>
+		</div><!-- #nav-search -->
+	</div>
+
+	<div class="page-content">
+		<div class="page-header">
+			<h1>
+					<strong>{$data.cat_name}</strong>:课程安排
+			</h1>
+		</div><!-- /.page-header -->
+
+		
+
+
+		<div class="row">
+			<div class="col-xs-12">
+				<!--课程安排-->
+				<form role="form" class="form-signinsd" action="{:U('System/section')}" method="POST">
+				<input type="hidden" class="form-control" id="cat_id" name="cat_id" value="{$data.cat_id}"/>
+					 <textarea name="cat_section" id="myEditor" style="width:100%;height:100px;">{$data.cat_section}</textarea>
+					 </br>
+					 </br>
+					<button type="submit" class="btn btn-primary">确定</button>
+					<a href="{:U('System/cats')}" class="btn btn-default" >返回</a>
+				 </form>
+		  </div>
+		</div>
+							
+							
+					
+<import file="js.ueditor_mcit.ueditor#config" />
+<import file="js.ueditor_mcit.ueditor#all" />
+
+<script>
+	var ue{$data.cat_id} = UE.getEditor('myEditor');
+	
+	//课程安排
+	$(".form-signinsd").ajaxForm({
+			dataType:'json',
+			clearForm:false,
+			
+			success:function(data){
+					if (data.state == 100) {
+						layer.alert(data.msg, {
+							icon: 1,
+							skin: 'layer-ext-moon'
+						})
+						setTimeout(function(){window.location.reload();},2000);
+					} else {
+						layer.alert(data.msg, {
+							icon: 2,
+							skin: 'layer-ext-moon'
+						})
+
+
+					}
+			}
+	});
+	//--------
+</script>
+			

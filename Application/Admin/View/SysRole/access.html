@@ -1,0 +1,253 @@
+<style>
+    .fade{
+        border: 1px solid #5b6be8;
+        padding: 10px;
+    }
+</style>
+<div class="row" style="margin-top: 10px;">
+    <div class="col-lg-12">
+        <div class="card m-b-30">
+            <div class="card-body">
+                <h4 class="mt-0 header-title">权限节点</h4>
+                <div class="col-12">
+                    <div class="card m-b-30">
+                        <div class="card-body">
+                            <div class="general-label col-4">
+                                <form id="form-signins" class="form-inline" method="post" action="__URL__/node" role="form">
+                                    <div class="form-group">
+                                        <label class="sr-only">名称</label>
+                                        <input type="text" id="node_name" name="title" class="form-control ml-2" id="exampleInputEmail2" placeholder="节点名称">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="sr-only">级别</label>
+                                        <select name="level" class="form-control ml-2 mt-2">
+                                            <option value="Action">Action</option>
+                                            <option value="Controller">Controller</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="sr-only">Controller</label>
+                                        <input type="text" id="Controller" name="Controller" class="form-control ml-2 mt-2" placeholder="Controller">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="sr-only">Action</label>
+                                        <input type="text" id="Action" name="Action" class="form-control ml-2 mt-2" placeholder="Action">
+                                    </div>
+
+                                    <br>
+                                    <button type="submit" class="btn btn-sm btn-danger ml-2 mt-2"><i class="mdi mdi-plus-circle"></i>添加权限节点</button>
+                                    &nbsp;
+                                    <!--<button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#myModal" style="float:right;"><i class="mdi mdi-plus-circle"></i>添加一个新sys_role</button>-->
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <form id="set_access" class="add_form" action="__URL__/setAccess" method="post">
+                    <input type="hidden" name="authstr" id="authstr" value="{$roleInfo.authstr}">
+                    <input type="hidden" name="role" value="{$roleInfo.id}">
+                <div class="col-md-12 col-lg-12">
+                    <div class="card m-b-30">
+                        <div class="card-body">
+                            <h4 class="mt-0 header-title"><i class="fa fa-list"></i>
+                                &nbsp;&nbsp;{$roleInfo.name}&nbsp;----权限列表</h4>
+                            <p class="text-muted m-b-30 font-14">系统各模块权限列表如下,请准确选择角色权限</p>
+                            <div class="row">
+                                <div class="col-3">
+                                    <div class="nav flex-column nav-pills text-center" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                                        <volist name="nodeTree" id="vo">
+                                        <a class="nav-link waves-effect waves-light" id="v-pills-{$vo.name}-tab" data-toggle="pill" href="#v-pills-{$vo.name}" role="tab" aria-controls="v-pills-{$vo.name}" aria-selected="false">{$vo.title}</a>
+                                        </volist>
+                                    </div>
+                                </div>
+                                <div class="col-9">
+                                    <div class="tab-content" id="v-pills-tabContent">
+                                        <volist name="nodeTree" id="vo">
+                                        <div class="tab-pane fade" id="v-pills-{$vo.name}" role="tabpanel" aria-labelledby="v-pills-{$vo.name}-tab">
+                                            <p class="font-14 mb-0">
+                                                <volist name="vo.detail" id="vovo">
+                                                    <div class="col-12 mt-2">
+                                                        <div class="custom-control custom-checkbox mb-3">
+                                                            <input type="checkbox" name="node[]" value="{$vovo.code}" <if condition="$vovo['checked'] eq 1">checked="checked"</if>>
+                                                            <!--<input type="checkbox" class="custom-control-input" id="customCheck{$vovo.id}" name="node[]" <if condition="$vovo['checked'] eq 1">checked="checked"</if>>-->
+                                                            <label>{$vovo.title}</label>
+                                                        </div>
+                                                    </div>
+                                                </volist>
+                                            </p>
+                                        </div>
+                                        </volist>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <!--<input type="hidden" name="authcode" id="authcode" value="{$roleInfo.authcode}">-->
+                    <button class="btn btn-warning" type="submit"> <i class="fa fa-plus"></i>
+                        &nbsp;确认保存
+                    </button>
+                </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+<script>
+    $("body").find('.nav-link').eq(1).addClass('active');
+    $("body").find('.nav-link').eq(1).addClass('show');
+    $("body").find('.fade').eq(0).addClass('active');
+    $("body").find('.fade').eq(0).addClass('show');
+
+
+
+    $("#form-signins").ajaxForm({
+        dataType:'json',
+        clearForm:false,
+        beforeSerialize:function(){
+            if ($('#node_name').val() == ''||$('#Action').val() == ''||$('#Controller').val() == '') {
+                layer.alert("请将表单填写完整", {
+                    icon: 2,
+                    skin: 'layer-ext-moon'
+                })
+                return false;
+            }
+        },
+
+        success:function(data){
+            if (data.state == 100) {
+                layer.alert(data.msg, {
+                    icon: 1,
+                    skin: 'layer-ext-moon'
+                })
+                setTimeout(function(){window.location.reload();},2000);
+            } else {
+                layer.alert(data.msg, {
+                    icon: 2,
+                    skin: 'layer-ext-moon'
+                })
+
+            }
+        }
+    });
+
+    $("#set_access").ajaxForm({
+        dataType:'json',
+        clearForm:false,
+//        beforeSubmit:function(){
+//             return true;
+//        },
+        success:function(data){
+            if(data.state==100){
+                layer.alert(data.msg, {
+                    icon: 1,
+                    skin: 'layer-ext-moon'
+                })
+                setTimeout(function(){window.location.reload();},2000);
+                location.href = data.url;
+            }else{
+                layer.alert(data.msg, {
+                    icon: 2,
+                    skin: 'layer-ext-moon'
+                })
+            }
+        }
+    });
+
+
+
+    $(".del").click(function(){
+        var obj = $(this);
+        var id = $(this).attr("data-id");
+
+        layer.confirm('确认要删除本条记录吗 ？', {
+            btn: ['确认','取消'] //按钮
+        }, function(){
+            $.ajax({
+                type: "POST",
+                url:  "{:U(MODULE_NAME.'/'.CONTROLLER_NAME.'/delete')}",
+                data: {id:id},
+                dataType: "json",
+                success: function(data){
+                    if(data.state==100){
+                        layer.msg(data.msg, {icon: 1});
+                        obj.parent().parent().parent().remove();
+                    }else{
+                        layer.msg(data.msg, {icon: 2});
+                    }
+                }
+            });
+        }, function(){
+
+        });
+
+
+    })
+
+
+
+
+
+
+
+    $(".check-btn").click(function(){
+        var obj = $(this);
+        var teacher_id = $(this).attr("data-id");
+        var teacher_type = $(this).attr("data-type");
+        if(teacher_type == 0){
+            teacher_type = 1;
+        }else{
+            teacher_type = 0;
+        }
+        layer.confirm('确认要进行该操作 ？', {
+            btn: ['确认','取消'] //按钮
+        }, function(){
+            $.ajax({
+                type: "POST",
+                url:  '/auto/index.php/TPH/Teacher/TeacherType.html',
+                data: {teacher_id:teacher_id,teacher_type:teacher_type},
+                dataType: "json",
+                success: function(data){
+                    if(data.state==100){
+                        layer.msg(data.msg, {icon: 1});
+                        if(teacher_type==0){
+                            obj.removeClass("btn-warning");
+                            obj.addClass("btn-primary");
+                            obj.attr('data-type',0);
+                            obj.children('span').text('已审核');
+                        }else{
+                            obj.removeClass("btn-primary");
+                            obj.addClass("btn-warning");
+                            obj.attr('data-type','1');
+                            obj.children('span').text('未审核');
+                        }
+
+                    }else{
+                        layer.msg(data.msg, {icon: 2});
+                    }
+                }
+            });
+        }, function(){
+
+        });
+
+
+    })
+
+
+
+
+
+</script>

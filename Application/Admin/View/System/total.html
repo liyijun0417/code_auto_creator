@@ -1,0 +1,446 @@
+
+<style>
+.videoitem{
+	margin-top: 5px;
+margin-left: -5px;
+}
+
+.videoInfo{
+	border: 1px solid #CCC;
+	width:100%;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	padding:5px;
+}
+.videoMain{
+	margin-right: 1%;
+	margin-bottom: 1%;
+	width: 19%;
+	border: 2px solid #ccc;
+}
+.videoMain div{
+	float: left;
+}
+.centerbox{
+	width: 100%;
+}
+</style>
+<link href="__PUBLIC__/css/video-js.min.css" rel="stylesheet">
+<script src="__PUBLIC__/js/video.min.js"></script>
+
+   <!-- site specific styling -->
+
+
+
+
+   <!-- include flowplayer -->
+
+
+	<div class="breadcrumbs" id="breadcrumbs">
+		<script type="text/javascript">
+			try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
+		</script>
+
+		<ul class="breadcrumb">
+			<li>
+				<i class="icon-home home-icon"></i>
+				<a href="{:U('Index/index')}">首页</a>
+			</li>
+			<li class="active">统计</li>
+		</ul><!-- .breadcrumb -->
+
+		<!-- <div class="nav-search" id="nav-search">
+			<form class="form-search">
+				<span class="input-icon">
+					<input type="text" placeholder="Search ..." class="nav-search-input" id="nav-search-input" autocomplete="off" />
+					<i class="icon-search nav-search-icon"></i>
+				</span>
+			</form>
+		</div><!-- #nav-search -->
+	</div>
+
+	<div class="page-content">
+		<div class="page-header">
+			<h1>
+				统计中心
+			</h1>
+		</div><!-- /.page-header -->
+	
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="tabbable">
+						<ul class="nav nav-tabs" id="myTab">
+							<li class="<if condition="$_GET['type'] eq hours">active</if> check-table" data-id="hours">
+								<a data-toggle="tab" href="#home">
+									<i class="green icon-inbox bigger-110"></i>
+									每小时（{$day}）
+								</a>
+							</li>
+							
+							<li class="<if condition="$_GET['type'] eq day">active</if> check-table" data-id="day">
+								<a data-toggle="tab" href="#day">
+									<i class="green icon-inbox bigger-110"></i>
+									每日
+								</a>
+							</li>
+							
+							
+							<li class="check-table">
+								<a  href="{:U('system/charts',array('cat_id'=>1,'start'=>$day,'over'=>$day))}">
+									<i class="green icon-table bigger-110"></i>
+									图表
+								</a>
+							</li>
+							<li class="check-table">
+								<a  href="{:U('system/total3',array('start'=>$day,'over'=>$day))}">
+									<i class="green icon-table bigger-110"></i>
+									自定义统计
+								</a>
+							</li>
+
+							
+							
+							
+						</ul>
+
+						<div class="tab-content" style="height:1000px;">
+							<div id="home" class="tab-pane <if condition="$_GET['type'] eq hours">active</if>">
+								
+								<div class="col-xs-12">
+									<div class="row">
+									<div class="table-responsive">
+										<table id="sample-table-1" class="table table-striped table-bordered table-hover">
+											<thead>
+												<tr>
+													
+												
+													<th>时间</th>
+													
+
+													<th>操作</th>
+												</tr>
+											</thead>
+
+											<tbody>
+												<tr>
+													<!-- <td class="center">
+														<label>
+															<input type="checkbox" class="ace" />
+															<span class="lbl"></span>
+														</label>
+													</td> -->
+													<empty name="lists">
+										<td colspan="99" style="text-align:center" class="danger"> <strong><i class="fa fa-meh-o"></i>
+												&nbsp;&nbsp;暂无记录</strong>
+										</td>
+										<else />
+										<volist name="lists" id="data">
+												<tr>
+												
+												<td>{$data.hour}:00:00</td>
+												
+												
+												<td>
+														<div class="visible-md visible-lg hidden-sm hidden-xs btn-group">
+
+															<a href="{:U('system/total2',array('hour'=>$data['hour'],'day'=>$day))}" class="btn btn-sm btn-success del_it" data-id="{$data.admin_id}">
+																<i class="icon-info-sign bigger-110"></i>
+																<span class="bigger-110 no-text-shadow">查看</span>
+															</a>
+
+														</div>
+
+
+													</td>
+												</tr>
+											</volist>
+									</empty>
+
+								<tr>
+										<td colspan="99" style="text-align:center">
+												<ul class="pagination">{$pageView}</ul>
+										</td>
+								</tr>
+
+
+							</tbody>
+						</table>
+					</div><!-- /.table-responsive -->
+					
+					
+					
+					
+					</div>
+
+					</div>
+
+
+
+				</div>
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							<div id="day" class="tab-pane <if condition="$_GET['type'] eq day">active</if>">
+								
+								<div class="col-xs-12">
+									<div class="row">
+										<div class="table-responsive">
+										<table id="sample-table-1" class="table table-striped table-bordered table-hover">
+											<thead>
+												<tr>
+													
+												
+													<th>时间</th>
+													
+
+													<th>操作</th>
+												</tr>
+											</thead>
+
+											<tbody>
+												<tr>
+													<!-- <td class="center">
+														<label>
+															<input type="checkbox" class="ace" />
+															<span class="lbl"></span>
+														</label>
+													</td> -->
+													<empty name="lists">
+										<td colspan="99" style="text-align:center" class="danger"> <strong><i class="fa fa-meh-o"></i>
+												&nbsp;&nbsp;暂无记录</strong>
+										</td>
+										<else />
+										<volist name="lists" id="data">
+												<tr>
+												
+												<td>{$data.day}<if condition="$data['day'] eq $day">(今天)</if></td>
+												
+												
+												<td>
+														<div class="visible-md visible-lg hidden-sm hidden-xs btn-group">
+
+															<a href="{:U('system/total2',array('day'=>$data['day']))}" class="btn btn-sm btn-success" data-id="{$data.admin_id}">
+																<i class="icon-info-sign bigger-110"></i>
+																<span class="bigger-110 no-text-shadow">查看</span>
+															</a>
+
+														</div>
+														
+														<div class="visible-md visible-lg hidden-sm hidden-xs btn-group">
+
+															<a href="{:U('system/total',array('type'=>'hours','day'=>$data['day']))}" class="btn btn-sm btn-pink" data-id="{$data.admin_id}">
+																<i class="icon-info-sign bigger-110"></i>
+																<span class="bigger-110 no-text-shadow">具体情况</span>
+															</a>
+
+														</div>
+
+
+													</td>
+												</tr>
+											</volist>
+									</empty>
+
+								<tr>
+										<td colspan="99" style="text-align:center">
+												<ul class="pagination">{$pageView}</ul>
+										</td>
+								</tr>
+
+
+							</tbody>
+						</table>
+					</div><!-- /.table-responsive -->
+									
+									</div>
+								</div>
+								<ul class="pagination" style="clearfix">
+										{$pageView}
+								</ul>
+
+
+
+
+							</div>
+							
+							
+							
+
+
+
+					
+</div>
+
+</div>
+	<script>
+		$(".add-btn").click(function(){
+
+			if($(".sh-btn").prop("checked")){
+
+				var id = $(this).attr("data-id");
+				var obj = $(this);
+				$.ajax({
+						type: "POST",
+						url: '{:U("Topic/delVideo")}',
+						data: {
+								key:id
+						},
+						dataType: "json",
+						success: function(data) {
+								layer.msg(data.msg, {icon: 1});
+								setTimeout(function(){window.location.reload();},1000);
+						}
+				});
+
+
+			}else{
+
+				var video_id   = $(this).attr("data-id");
+				var video_name = $(this).attr("data-name");
+				var topic_id = '{$_GET['id']}';
+
+				$.ajax({
+						type: "POST",
+						url: '{:U("Topic/addVideo")}',
+						data: {
+								video_id:video_id,name: video_name,topic_id:topic_id
+						},
+						dataType: "json",
+						success: function(data) {
+								if(data.state==100){
+										layer.msg(data.msg, {icon: 1});
+										var str = "<div class='btn-group'><button type='button' class='btn btn-info cor1' data-id="+video_id+" disabled>" +video_name+ "</button><button type='button' class='btn btn-danger cordel' data-id="+video_id+">清除</button></div>";
+										$('.bt-video').append(str);
+										setTimeout(function(){window.location.reload();},1000);
+
+								}else{
+										layer.msg(data.msg, {icon: 2});
+								}
+						}
+				});
+
+
+			}
+
+		});
+
+
+		$(document).on("click",".check-table",function(){
+			
+			var tv = $(this).attr('data-id');
+			var url = '__ACTION__';
+			if(tv=='hours'){
+				var bb = url + '/type/hours';
+			}else{
+				var bb = url + '/type/day';
+			}
+			var new_url = bb;
+			 window.location.href = new_url;
+			// alert(new_url);
+		});
+
+		$(document).on("click",".cordel",function(){
+        var id = $(this).attr("data-id");
+        var obj = $(this);
+
+        $.ajax({
+            type: "POST",
+            url: '{:U("Topic/delVideo")}',
+            data: {
+                key:id
+            },
+            dataType: "json",
+            success: function(data) {
+                layer.msg(data.msg, {icon: 1});
+                obj.parent().remove();
+
+            }
+        });
+    });
+
+
+		$(".del-it").click(function(){
+			var obj = $(this);
+			var video_id = $(this).attr("data-id");
+			var topic_id = '{$_GET['id']}';
+
+			layer.confirm('确定要将该视频移出本话题？', {
+			  btn: ['移除','不了'] //按钮
+			}, function(){
+				$.ajax({
+            type: "POST",
+            url: '{:U("Topic/delTheVideo")}',
+            data: {
+                video_id:video_id,topic_id:topic_id
+            },
+            dataType: "json",
+            success: function(data) {
+							if(data.state==100){
+								obj.parent().parent().remove();
+								layer.msg(data.msg, {icon: 1});
+								//setTimeout(function(){window.location.reload();},2000);
+							}else{
+								layer.msg(data.msg, {icon: 2});
+							}
+            }
+        });
+			}, function(){
+				layer.msg('已取消操作', {icon: 1});
+			});
+		});
+
+
+		$(".add-it").click(function(){
+			var obj = $(this);
+			var video_id = $(this).attr("data-id");
+			var topic_id = '{$_GET['id']}';
+
+				$.ajax({
+						type: "POST",
+						url: '{:U("Topic/addTheVideo")}',
+						data: {
+								video_id:video_id,topic_id:topic_id
+						},
+						dataType: "json",
+						success: function(data) {
+							if(data.state==100){
+								obj.parent().parent().remove();
+								layer.msg(data.msg, {icon: 1});
+								//setTimeout(function(){window.location.reload();},2000);
+							}else{
+								layer.msg(data.msg, {icon: 2});
+							}
+						}
+				});
+
+		});
+
+		$("#joinTopic").click(function(){
+			var topic_id = $(this).attr('data-id');
+			$.ajax({
+					type: "POST",
+					url: '{:U("Topic/joinTopic")}',
+					data: {
+							topic_id:topic_id
+					},
+					dataType: "json",
+					success: function(data) {
+						if(data.state == 100){
+							layer.msg(data.msg, {icon: 1});
+							setTimeout(function(){window.location.reload();},2000);
+						}else{
+							layer.msg(data.msg, {icon: 2});
+						}
+
+					}
+			});
+
+		});
+	</script>

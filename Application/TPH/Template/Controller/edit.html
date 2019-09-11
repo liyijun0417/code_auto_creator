@@ -1,0 +1,22 @@
+public function edit(){
+	${$tableName}Model = M('{$TableName}');
+	if(IS_POST){
+		${$tableName}Model ->create();
+		$flag = ${$tableName}Model ->save();
+		if($flag){
+            $return['state'] = 100;
+            $return['msg'] = '操作成功!' ;
+        }else{
+            $return['state'] = 200;
+            $return['sql'] = ${$tableName}Model->_sql();
+            $return['msg'] = '操作失败!' ;
+        }
+        echo json_encode($return);
+        exit;
+	}else{
+		$id = I('id'); 
+		${$tableName} = ${$tableName}Model->find($id);
+		$this->assign('{$tableName}', ${$tableName});
+		$this->display();
+	}
+}

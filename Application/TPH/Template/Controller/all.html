@@ -1,0 +1,11 @@
+public function all(){
+
+	$count =  M('{$TableName}')->where()->count();
+	$Page = new Page($count);	//实例化分页类
+    $nowPage = isset($_GET['page']) ? $_GET['page'] : 1 ;
+	$show = $Page->show();	//分页显示输出
+	${$tableName}List =  M('{$TableName}')->where()->page($nowPage.','.$Page->listRows)->select();	//分页查询
+	$this->assign('page',$show);	//赋值分页输出
+	$this->assign('{$tableName}List', ${$tableName}List);
+	$this->display();
+}

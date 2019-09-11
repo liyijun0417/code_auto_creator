@@ -1,0 +1,101 @@
+<div class="row" style="margin-top: 20px;">
+    <form class="form-horizontal" id="form1" method="post">
+    <div class="col-12">
+        <div class="card m-b-30">
+            <div class="card-body">
+                <h4 class="mt-0 header-title">编辑用户信息</h4>
+                <p class="text-muted m-b-30 font-14">----------------------------------------------------------------------------------------------------------------------------------------------------</p>
+                                            <input type="hidden" name="id" value="{$sys_user_info.id}" />
+                <div class="form-group row">
+                                <label for="user_name" class="col-sm-2 col-form-label">用户名</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" placeholder="user_name" name="user_name" id="user_name"  value="{$sys_user_info.user_name}" disabled/>
+                                </div>
+                            </div>
+                <div class="form-group row">
+                    <label for="tel" class="col-sm-2 col-form-label">联系电话</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" placeholder="tel" name="tel" id="tel"  value="{$sys_user_info.tel}"/>
+                    </div>
+                </div>
+                        <div class="form-group row">
+                                <label for="password" class="col-sm-2 col-form-label">角色</label>
+                                <div class="col-sm-10">
+                                    <select class="form-control " name="role">
+                                        <volist name="role" id="vo">
+                                            <option value="{$vo.id}" <if condition="$sys_user_info['role'] eq $vo['id']">selected=selected</if>>{$vo.name}</option>
+                                        </volist>
+                                    </select>
+                                </div>
+                            </div>
+                        <div class="form-group row">
+                                <label for="status" class="col-sm-2 col-form-label">状态</label>
+                                <div class="col-sm-10">
+                                    <select class="form-control" name="status">
+                                        <option value="1" <if condition="$sys_user_info.status eq 1">selected=selected</if>>正常</option>
+                                        <option value="2" <if condition="$sys_user_info.status eq 2">selected=selected</if>>禁用</option>
+                                    </select>
+                                </div>
+                            </div>
+                        <div class="form-group row">
+                                <label for="create_time" class="col-sm-2 col-form-label">创建时间</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" placeholder="创建时间" name="create_time" id="create_time"  value="{$sys_user_info.create_time}" disabled/>
+                                </div>
+                            </div>
+                        <div class="form-group row">
+                                <label for="update_time" class="col-sm-2 col-form-label">最后修改时间</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" placeholder="最后修改时间" name="update_time" id="update_time"  value="{$sys_user_info.update_time}" disabled/>
+                                </div>
+                            </div>
+                                    </div>
+        </div>
+    </div> <!-- end col -->
+    <div class="form-group">
+        <div class="col-md-6 col-md-offset-2">
+            <input type="submit" value="提交" class="btn btn-warning" />
+            <button type="button" class="btn btn-primary" onclick="javascript:history.back(-1);">返回</button>
+        </div>
+    </div>
+</form></div>
+
+<script>
+$("#form1").ajaxForm({
+		dataType:'json',
+		clearForm:false,
+		beforeSerialize:function(){
+				if ($('#teacher_name').val() == '') {
+						layer.alert("人员名称不能为空!", {
+							icon: 2,
+							skin: 'layer-ext-moon'
+						})
+						return false;
+				}
+		},
+		success:function(data){
+				if (data.state == 100) {
+					layer.alert(data.msg, {
+						icon: 1,
+						skin: 'layer-ext-moon'
+					})
+					//setTimeout(function(){window.location.reload();},2000);
+				} else {
+					layer.alert(data.msg, {
+						icon: 2,
+						skin: 'layer-ext-moon'
+					})
+
+				}
+		}
+});
+
+
+//$(".chzn-select").chosen();
+				//$('.chzn-select').on('click', function(e){
+				 // var target = $(e.target).find('input[type=radio]');
+				  //var which = parseInt(target.val());
+				  //if(which == 2) $('#form-field-select-4').addClass('tag-input-style');
+				  // else $('#form-field-select-4').removeClass('tag-input-style');
+				//});
+</script>

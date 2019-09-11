@@ -1,0 +1,15 @@
+public function delete(){
+	${$tableName}Model = M('{$tableName}');
+	$map['id'] = I('id');
+	$flag = ${$tableName}Model->where($map)->delete();
+	if($flag){
+        $return['state'] = 100;
+        $return['msg'] = '操作成功!' ;
+     }else{
+        $return['state'] = 200;
+        $return['sql'] = ${$tableName}Model->_sql();
+        $return['msg'] = '操作失败!' ;
+    }
+    echo json_encode($return);
+    exit;
+}

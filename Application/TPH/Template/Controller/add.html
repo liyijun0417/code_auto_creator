@@ -1,0 +1,19 @@
+public function add(){
+	if(IS_POST){
+		${$tableName}Model = M('{$TableName}');
+		${$tableName}Model ->create();
+		$flag = ${$tableName}Model ->add();
+		if($flag){
+                $return['state'] = 100;
+                $return['msg'] = '操作成功!' ;
+            }else{
+                $return['state'] = 200;
+                $return['sql'] = ${$tableName}Model->_sql();
+                $return['msg'] = '操作失败!' ;
+            }
+            echo json_encode($return);
+            exit;
+	}else{
+		$this->display(); 
+	}
+}

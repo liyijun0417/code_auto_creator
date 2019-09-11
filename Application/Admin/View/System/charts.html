@@ -1,0 +1,211 @@
+
+<style>
+.videoitem{
+	margin-top: 5px;
+margin-left: -5px;
+}
+
+.videoInfo{
+	border: 1px solid #CCC;
+	width:100%;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	padding:5px;
+}
+.videoMain{
+	margin-right: 1%;
+	margin-bottom: 1%;
+	width: 19%;
+	border: 2px solid #ccc;
+}
+.videoMain div{
+	float: left;
+}
+.centerbox{
+	width: 100%;
+}
+</style>
+<link href="__PUBLIC__/css/video-js.min.css" rel="stylesheet">
+<script src="__PUBLIC__/js/video.min.js"></script>
+
+   <!-- site specific styling -->
+
+
+
+
+   <!-- include flowplayer -->
+
+
+	<div class="breadcrumbs" id="breadcrumbs">
+		<script type="text/javascript">
+			try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
+		</script>
+
+		<ul class="breadcrumb">
+			<li>
+				<i class="icon-home home-icon"></i>
+				<a href="{:U('Index/index')}">首页</a>
+			</li>
+			<li class="active">统计</li>
+		</ul><!-- .breadcrumb -->
+
+		<!-- <div class="nav-search" id="nav-search">
+			<form class="form-search">
+				<span class="input-icon">
+					<input type="text" placeholder="Search ..." class="nav-search-input" id="nav-search-input" autocomplete="off" />
+					<i class="icon-search nav-search-icon"></i>
+				</span>
+			</form>
+		</div><!-- #nav-search -->
+	</div>
+
+	<div class="page-content">
+		<div class="page-header">
+			<h1>
+				统计中心
+			</h1>
+		</div><!-- /.page-header -->
+
+		<div class="row">
+			<div class="col-xs-12">
+							<div id="home" class="tab-pane <if condition="$_GET['type'] eq hours">active</if>">
+								<div class="row">
+								<div class="col-xs-12 col-sm-12">
+										<div class="widget-box">
+											<div class="widget-header">
+												<h4>搜索</h4>
+
+												<span class="widget-toolbar">
+
+													<a href="#" data-action="collapse">
+														<i class="icon-chevron-up"></i>
+													</a>
+
+													<a href="#" data-action="close">
+														<i class="icon-remove"></i>
+													</a>
+												</span>
+											</div>
+
+											<div class="widget-body">
+												<div class="widget-main">
+													<form class="form-inline" role="form" id="form-signin" action="{:U('System/charts')}" method="get">
+														<div class="form-group">
+															
+															<select class="form-control" name="cat_id" id="form-field-select-1">
+																<volist name="cats" id="vo">
+																	<option value="{$vo.cat_id}" <if condition="$vo['cat_id'] eq $_GET['cat_id']">selected="selected"</if>>{$vo.cat_name}</option>
+																</volist>
+															</select>
+															
+															
+														</div>
+														
+														<div class="form-group">
+															<label for="meeting">开始日期：</label><input name="start" type="date" value="{$_GET['start']}"/>
+														</div>
+														
+														<div class="form-group">
+															<label for="meeting">结束日期：</label><input name="over" type="date" value="{$_GET['over']}"/>
+														</div>
+														
+														<button type="submit" class="btn btn-sm btn-warning">查找</button>
+
+													</form>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col-xs-12">
+									<div class="row">
+									
+									<div class="widget-header">
+												<h4 style="color:red;">图表（案例）</h4>
+
+												<span class="widget-toolbar">
+
+													<a href="#" data-action="collapse">
+														<i class="icon-chevron-up"></i>
+													</a>
+
+													<a href="#" data-action="close">
+														<i class="icon-remove"></i>
+													</a>
+												</span>
+											</div>
+									
+									<div class="table-responsive">
+										<div id="container" style="min-width:400px;height:400px"></div>
+									</div><!-- /.table-responsive -->
+								</div>
+								
+
+
+
+
+							</div>
+
+							</div>
+						</div>
+					</div>
+				<script src="__PUBLIC__/js/hChart/highcharts.js"></script>
+				<script src="__PUBLIC__/js/video.min.js"></script>
+				<script>
+					$(function () {
+						var start = "{$_GET['start']}";
+						var over = "{$_GET['over']}";
+						var selectId = $('#form-field-select-1>option:selected').text();
+						$('#container').highcharts({
+							chart: {
+								type: 'column'
+							},
+							title: {
+								text: '报表统计'
+							},
+							subtitle: {
+								text: start+'——'+over+' <span style="color:red;">'+selectId+'</span> 的图表统计情况'
+							},
+							xAxis: {
+								categories: {$name},
+								crosshair: true
+							},
+							yAxis: {
+								min: 0,
+								title: {
+									text: '(次)'
+								}
+							},
+							tooltip: {
+								headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+								pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+								'<td style="padding:0"><b>{point.y:.1f} 次</b></td></tr>',
+								footerFormat: '</table>',
+								shared: true,
+								useHTML: true
+							},
+							plotOptions: {
+								column: {
+									pointPadding: 0.2,
+									borderWidth: 0
+								}
+							},
+							series: {$data}
+							
+							//[{name: '事假',data: [49, 71, 106, 129, 144, 176, 135, 148, 216, 194, 95, 54]}, {name: '病假',data: [83, 78, 98, 93, 106, 84, 105, 104, 91, 83, 106, 92]
+							//}, {
+								//name: '公休',
+								//data: [48, 38, 39, 41, 47, 48, 59, 59, 52, 65, 59, 51]
+							//}, {
+								//name: '开会',
+								//data: [42, 33, 34, 39, 52, 75, 57, 60, 47, 39, 46, 51]
+							//}]
+						});
+					});
+				
+				</script>
+
+</div>
+
+
+	
