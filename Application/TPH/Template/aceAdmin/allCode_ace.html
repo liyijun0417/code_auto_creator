@@ -1,0 +1,26 @@
+<table class="table table-striped table-bordered table-hover">
+<thead>
+<tr>	
+<volist name="tableInfoArray" id="tableInfo">
+	<th><center>{$tableInfo[$columnNameKey]}</center></th>
+</volist>
+<td>操作</td>
+</tr>
+</thead>
+<literal><volist name="</literal>{$tableName}<literal>List" id="vo"></literal>
+<tr>
+<volist name="tableInfoArray" id="tableInfo">
+<td><literal>{$vo.</literal>{$tableInfo[$columnNameKey]}}</td>
+</volist>
+<td><a class="btn btn-sm btn-success" href="<literal>{:U(MODULE_NAME.'/</literal>{$TableName}<literal>/edit/id/'.$vo[id])}</literal>"><i class="icon-edit bigger-110"></i>编辑</a>
+<!--<a class="btn btn-sm btn-danger" href="<literal>{:U(MODULE_NAME.'/</literal>{$TableName}<literal>/delete/id/'.$vo[id])}</literal>" onclick='return confirm("确定删除吗？")'><i class="icon-info-sign bigger-110"></i>删除</a>-->
+<a class="btn btn-sm btn-danger del" href="javascript:void(0);" data-id="{$vo[id]}"><i class="icon-info-sign bigger-110"></i>删除</a>
+</td>
+<tr>
+<literal></volist></literal>
+</table>
+<literal>
+<td colspan="99" style="text-align:center">
+		<ul class="pagination">{$page}</ul>
+</td>
+</literal>

@@ -3,7 +3,7 @@ return array(
 	//'配置项'=>'配置值'
 	'URL_MODEL'            => 1,
 	'VAR_PAGE'             => 'page',
-	'LAYOUT_ON'            => true,
+	//'LAYOUT_ON'            => true,
 	'MODULE_ALLOW_LIST'    => array('Home','Admin','TPH'),
     'DEFAULT_MODULE'       => 'Admin',
     'DEFAULT_FILTER'       => 'htmlspecialchars',

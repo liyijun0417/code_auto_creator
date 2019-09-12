@@ -1,0 +1,45 @@
+
+<div class="row" style="margin-top: 20px;">
+    {$content}
+</div>
+
+<script>
+$("#form1").ajaxForm({
+		dataType:'json',
+		clearForm:false,
+		beforeSerialize:function(){
+				if ($('#teacher_name').val() == '') {
+						layer.alert("人员名称不能为空!", {
+							icon: 2,
+							skin: 'layer-ext-moon'
+						})
+						return false;
+				}
+		},
+		success:function(data){
+				if (data.state == 100) {
+					layer.alert(data.msg, {
+						icon: 1,
+						skin: 'layer-ext-moon'
+					})
+					setTimeout(function(){window.location.reload();},2000);
+				} else {
+					layer.alert(data.msg, {
+						icon: 2,
+						skin: 'layer-ext-moon'
+					})
+
+				}
+		}
+});
+
+
+//$(".chzn-select").chosen();
+				//$('.chzn-select').on('click', function(e){
+				 // var target = $(e.target).find('input[type=radio]');
+				  //var which = parseInt(target.val());
+				  //if(which == 2) $('#form-field-select-4').addClass('tag-input-style');
+				  // else $('#form-field-select-4').removeClass('tag-input-style');
+				//});
+</script>
+

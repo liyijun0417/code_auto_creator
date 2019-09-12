@@ -1,0 +1,28 @@
+<form class="form-horizontal" id="form1" method="post">
+    <div class="col-12">
+        <div class="card m-b-30">
+            <div class="card-body">
+                <h4 class="mt-0 header-title">修改xxx</h4>
+                <p class="text-muted m-b-30 font-14">----------------------------------------------------------------------------------------------------------------------------------------------------</p>
+                <volist name="tableInfoArray" id="tableInfo">
+                        <if condition="$tableInfo[$columnNameKey] neq 'id'">
+                            <div class="form-group row">
+                                <label for="{$tableInfo[$columnNameKey]}" class="col-sm-2 col-form-label">{$tableInfo[$columnNameKey]}</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" placeholder="{$tableInfo[$columnNameKey]}" name="{$tableInfo[$columnNameKey]}" id="{$tableInfo[$columnNameKey]}"  value="<literal>{$</literal>{$tableName}.{$tableInfo[$columnNameKey]}}" />
+                                </div>
+                            </div>
+                        <else />
+                            <input type="hidden" name="id" value="<literal>{$</literal>{$tableName}.{$tableInfo[$columnNameKey]}}" />
+                        </if>
+                </volist>
+            </div>
+        </div>
+    </div> <!-- end col -->
+    <div class="form-group">
+        <div class="col-md-6 col-md-offset-2">
+            <input type="submit" value="提交" class="btn btn-warning" />
+            <button type="button" class="btn btn-primary" onclick="javascript:history.back(-1);">返回</button>
+        </div>
+    </div>
+</form>

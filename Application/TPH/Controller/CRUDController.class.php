@@ -1,15 +1,21 @@
 <?php
-//	ThinkphpHelper v0.3
+//	代码自动生成器
 //	
-//	weiyunstudio.com
-//	sjj zhuanqianfish@gmail.com
-//	2014年9月18日
+//	李沂君
+//	3322169285@qq.com
+//	2018年9月18日
 namespace TPH\Controller;
 use Think\Controller;
 use Think\Model;
 use Yijun\Page;
 
 class CRUDController extends Controller {
+
+    /**
+     * @var 模板风格 、 目前支持两种 、 bootstrap4 （view） 和 ace-admin
+     */
+    private $tmplate = 'ace-admin';//view
+
 	public function crud(){	//生成CRUD代码
 		$this->assign('tableNameList', getTableNameList());
 		$this->assign('moduleNameList', getModuleNameList());
@@ -210,7 +216,7 @@ class CRUDController extends Controller {
 	
 	//解析前台View模板
 	public function makeViewTemplate($templateFileName, $tableName, $content){
-		$templateFilePath = MODULE_PATH. "Template/View/" .$templateFileName;
+		$templateFilePath = MODULE_PATH. "Template/aceAdmin/" .$templateFileName;
 		$this->assign('tableName', $tableName);
 		$this->assign('content', $content);
 		$fileContent = $this->fetch($templateFilePath);

@@ -1,0 +1,65 @@
+<table id="sample-table-1" class="table table-striped table-bordered table-hover">
+    <thead>
+    <tr>
+        <volist name="tableInfoArray" id="tableInfo">
+            <th><center>{$tableInfo[$columnNameKey]}</center></th>
+        </volist>
+        <th>操作</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <literal><notempty name="</literal>{$tableName}<literal>List"></literal>
+    <literal><volist name="</literal>{$tableName}<literal>List" id="vo"></literal>
+                <tr>
+                    <volist name="tableInfoArray" id="tableInfo">
+                        <td><literal>{$vo.</literal>{$tableInfo[$columnNameKey]}}</td>
+                    </volist>
+                    <td>
+                        <div class="visible-md visible-lg hidden-sm hidden-xs btn-group">
+                            <div class="btn-group">
+                                <button data-toggle="dropdown" class="btn btn-success btn-sm dropdown-toggle">
+                                    <i class="icon-facetime-video"></i>
+                                    操作
+                                    <i class="icon-angle-down icon-on-right"></i>
+                                </button>
+
+                                <ul class="dropdown-menu">
+
+                                    <li>
+                                        <a href="<literal>{:U(MODULE_NAME.'/</literal>{$TableName}<literal>/edit/id/'.$vo[id])}</literal>">编辑</a>
+                                    </li>
+
+                                </ul>
+                            </div>
+
+                            <!--<button class="btn btn-sm <if condition = "$data['teacher_type'] eq 1">btn-warning<else/>btn-primary</if> check-btn" data-id="{$data.teacher_id}" data-type="{$data.teacher_type}">-->
+                            <!--<i class="icon-bell bigger-110"></i>-->
+                            <!--<span class="bigger-110 no-text-shadow"><if condition = "$data['teacher_type'] eq 0">已审核<else/>未审核</if></span>-->
+                            <!--</button>-->
+
+                            <button class="btn btn-sm btn-danger del" data-id="<literal>{$vo[id]}</literal>">
+                                <i class="icon-edit bigger-110"></i>
+                                <span class="bigger-110 no-text-shadow">删除</span>
+                            </button>
+
+                        </div>
+                    </td>
+                </tr>
+                <literal></volist></literal>
+                <literal><else/></literal>
+                    <td colspan="99" style="text-align:center" class="danger"> <strong><i class="fa fa-meh-o"></i>
+                        &nbsp;&nbsp;当前条件下没有数据</strong>
+                    </td>
+                <literal> </notempty></literal>
+
+    <literal>
+    <tr>
+        <td colspan="99" style="text-align:center">
+            <ul class="pagination">{$pageView}</ul>
+        </td>
+    </tr>
+
+    </literal>
+    </tbody>
+</table>
