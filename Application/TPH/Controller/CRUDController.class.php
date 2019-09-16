@@ -47,11 +47,16 @@ class CRUDController extends Controller {
 		$TableName = tableNameToModelName($tableName);
 		$tableInfoArray = getTableInfoArray($tableName);
 		$columnNameKey = getColumnNameKey();
-		
+        $comment = parseColumChinaName($tableName);
+        $commentArray = array();
+		foreach($columnNameKey as $v){
+            array_push($commentArray,$comment[$v]);
+        }
 		$this->assign('tableName', $tableName);
 		$this->assign('TableName', $TableName);
 		$this->assign('tableInfoArray', $tableInfoArray);
 		$this->assign('columnNameKey', $columnNameKey);
+		$this->assign('columnNameComment', $commentArray);
 		$resultCode = $this->fetch($templateFilePath);
 		return $resultCode;
 	}
@@ -67,9 +72,12 @@ class CRUDController extends Controller {
 		$Model = M($tableName);
 		$resultCode = "<table class=\"table table-striped table-bordered table-hover\">\r\n<thead>\r\n<tr>\r\n";
 		$tableInfoArray = getTableInfoArray($tableName);
+        $names = parseColumChinaName($tableName);
+
 		foreach($tableInfoArray as $tableInfo){ //拼接表头
 			$name = $tableInfo[getColumnNameKey()];
-			$resultCode .= "<th><center>".$name."</center></th>\r\n";
+            $all_name = !empty($names[$name])?$names[$name]:$name;
+			$resultCode .= "<th><center>".$all_name."</center></th>\r\n";
 		}
 		$resultCode .= "<th>操 作</th>\r\n</tr>\r\n</thead>\r\n";
 		for($i = 0; $i < 5; $i++){//填充5个数据
@@ -138,6 +146,7 @@ class CRUDController extends Controller {
 		$TableName = tableNameToModelName($tableName);
 		$tableInfoArray = getTableInfoArray($tableName);
 		$columnNameKey = getColumnNameKey();
+
 		
 		$this->assign('tableName', $tableName);
 		$this->assign('TableName', $TableName);

@@ -45,7 +45,8 @@ function getTableInfoArray($tableName){
 	if($dbType == 'mysql'){
 		$dbName = C('DB_NAME');
 		$result = $Model->query("select * from information_schema.columns where table_schema='".$dbName."' and table_name='".C('DB_PREFIX').$tableName."'");
-		$result = changeColumCase($result); //修正information_schema大小写问题
+		//print_r($result);exit;
+        $result = changeColumCase($result); //修正information_schema大小写问题
 		return $result;
 	}else{ //sqlite
 		$result = $Model->query("pragma table_info (".C('DB_PREFIX').$tableName.")");
@@ -118,16 +119,17 @@ function changeColumCase($columInfoArray){
 //tableName	表名
 //fieldName	字段名
 function pressFieldDict($tableName, $fieldName){
-	$dbDect = C('DB_FIELD_DICT');
-	if($dbDect[$tableName][$fieldName]){
-		if(is_array($dbDect[$tableName][$fieldName])){
-			return $dbDect[$tableName][$fieldName]['asName'];
-		}else{
-			return $dbDect[$tableName][$fieldName];
-		}
-	}else{
-		return $fieldName;
-	}
+//	$dbDect = C('DB_FIELD_DICT');
+//	if($dbDect[$tableName][$fieldName]){
+//		if(is_array($dbDect[$tableName][$fieldName])){
+//			return $dbDect[$tableName][$fieldName]['asName'];
+//		}else{
+//			return $dbDect[$tableName][$fieldName];
+//		}
+//	}else{
+//		return $fieldName;
+//	}
+    return parseColumChinaName($tableName)[$fieldName];
 }
 
 
@@ -135,4 +137,21 @@ function pressFieldDict($tableName, $fieldName){
 function pressTableDict($tableName){
 	$dbDect = C('DB_TABLE_DICT');
 	return $dbDect[$tableName] ? $dbDect[$tableName] : $tableName;
+}
+
+
+
+function parseColumChinaName($table_name){
+    $db = C("db_name");
+    $Model = new Model();
+    $sql="select column_name,column_comment from information_schema.columns where table_schema = '$db' and TABLE_NAME = '$table_name'";
+    $result = $Model->query($sql);
+    $new_arry = [];
+    if(!empty($result)){
+        foreach($result as $k=>$v){
+            $new_arry[$v['column_name']] = $v['column_comment'];
+        }
+        //print_r($new_arry);
+    }
+    return $new_arry;
 }

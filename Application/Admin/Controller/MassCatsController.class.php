@@ -1,34 +1,34 @@
 <?php
-//该代码由原型架构器自动生成----------李沂君（2019-09-16 19:06:15）
+//该代码由原型架构器自动生成----------李沂君（2019-09-16 17:10:02）
 namespace Admin\Controller;
 use Think\Controller;
 
 use Yijun\Page;
 
-class MassLeaveController extends BaseController {
+class MassCatsController extends BaseController {
 public function all(){
 
-	$count =  M('MassLeave')->where()->count();
+	$count =  M('MassCats')->where()->count();
 	$Page = new Page($count);	//实例化分页类
     $nowPage = isset($_GET['page']) ? $_GET['page'] : 1 ;
 	$show = $Page->show();	//分页显示输出
-	$mass_leaveList =  M('MassLeave')->where()->page($nowPage.','.$Page->listRows)->select();	//分页查询
+	$mass_catsList =  M('MassCats')->where()->page($nowPage.','.$Page->listRows)->select();	//分页查询
 	$this->assign('page',$show);	//赋值分页输出
-	$this->assign('mass_leaveList', $mass_leaveList);
+	$this->assign('mass_catsList', $mass_catsList);
 	$this->display();
 }
 
 public function add(){
 	if(IS_POST){
-		$mass_leaveModel = M('MassLeave');
-		$mass_leaveModel ->create();
-		$flag = $mass_leaveModel ->add();
+		$mass_catsModel = M('MassCats');
+		$mass_catsModel ->create();
+		$flag = $mass_catsModel ->add();
 		if($flag){
                 $return['state'] = 100;
                 $return['msg'] = '操作成功!' ;
             }else{
                 $return['state'] = 200;
-                $return['sql'] = $mass_leaveModel->_sql();
+                $return['sql'] = $mass_catsModel->_sql();
                 $return['msg'] = '操作失败!' ;
             }
             echo json_encode($return);
@@ -39,38 +39,38 @@ public function add(){
 }
 
 public function edit(){
-	$mass_leaveModel = M('MassLeave');
+	$mass_catsModel = M('MassCats');
 	if(IS_POST){
-		$mass_leaveModel ->create();
-		$flag = $mass_leaveModel ->save();
+		$mass_catsModel ->create();
+		$flag = $mass_catsModel ->save();
 		if($flag){
             $return['state'] = 100;
             $return['msg'] = '操作成功!' ;
         }else{
             $return['state'] = 200;
-            $return['sql'] = $mass_leaveModel->_sql();
+            $return['sql'] = $mass_catsModel->_sql();
             $return['msg'] = '操作失败!' ;
         }
         echo json_encode($return);
         exit;
 	}else{
 		$id = I('id'); 
-		$mass_leave = $mass_leaveModel->find($id);
-		$this->assign('mass_leave', $mass_leave);
+		$mass_cats = $mass_catsModel->find($id);
+		$this->assign('mass_cats', $mass_cats);
 		$this->display();
 	}
 }
 
 public function delete(){
-	$mass_leaveModel = M('mass_leave');
+	$mass_catsModel = M('mass_cats');
 	$map['id'] = I('id');
-	$flag = $mass_leaveModel->where($map)->delete();
+	$flag = $mass_catsModel->where($map)->delete();
 	if($flag){
         $return['state'] = 100;
         $return['msg'] = '操作成功!' ;
      }else{
         $return['state'] = 200;
-        $return['sql'] = $mass_leaveModel->_sql();
+        $return['sql'] = $mass_catsModel->_sql();
         $return['msg'] = '操作失败!' ;
     }
     echo json_encode($return);

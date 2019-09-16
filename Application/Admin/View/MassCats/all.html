@@ -1,7 +1,7 @@
-<link rel="stylesheet" href="__PUBLIC__/assets/css/chosen.css" />
-<script src="__PUBLIC__/assets/js/chosen.jquery.min.js"></script>
-<import type='css' file="css.lightbox" />
-<import file="js.lightbox" />
+<link rel="stylesheet" href="/Public/assets/css/chosen.css" />
+<script src="/Public/assets/js/chosen.jquery.min.js"></script>
+<link rel="stylesheet" type="text/css" href="/Public/css/lightbox.css" />
+<script type="text/javascript" src="/Public/js/lightbox.js"></script>
 <div class="breadcrumbs" id="breadcrumbs">
     <script type="text/javascript">
         try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
@@ -39,7 +39,7 @@
     <ul class="breadcrumb">
         <li>
             <i class="icon-home home-icon"></i>
-            <a href="{:U('Index/index')}">首页</a>
+            <a href="/index.php/TPH/Index/index.html">首页</a>
         </li>
         <li class="active">xx管理</li>
     </ul><!-- .breadcrumb -->
@@ -57,7 +57,7 @@
 <div class="page-content">
     <div class="page-header">
         <h1>
-            {$tableName}列表
+            mass_cats列表
         </h1>
     </div><!-- /.page-header -->
 
@@ -68,7 +68,7 @@
                 <div class="col-xs-12 col-sm-12">
                     <div class="widget-box">
                         <div class="widget-header">
-                            <h4>查找{$tableName}</h4>
+                            <h4>查找mass_cats</h4>
 
 								<span class="widget-toolbar">
 
@@ -84,20 +84,17 @@
 
                         <div class="widget-body">
                             <div class="widget-main">
-                                <form class="form-inline" role="form" id="form-signin" action="{:U('Teacher/index')}" method="get">
+                                <form class="form-inline" role="form" id="form-signin" action="/index.php/TPH/Teacher/index.html" method="get">
                                     <div class="form-group">
-                                        <label class="sr-only">名称</label>
-                                        <input type="text" name="teacher_name" class="form-control" id="teacher_name" placeholder="请输入关键字">
+                                        <label class="sr-only">mass_cats名称</label>
+                                        <input type="text" name="teacher_name" class="form-control" id="teacher_name" placeholder="请输入人员名称">
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="sr-only">分类</label>
+                                        <label class="sr-only">mass_cats分类</label>
                                         <select class="form-control" name="teacher_cat_id" id="form-field-select-1">
                                             <option value="">全部分类</option>
-                                            <volist name="cats" id="vo">
-                                                <option value="{$vo.cat_id}" <if condition="$_GET['teacher_cat_id'] eq $vo['cat_id']">selected="selected"</if>>{$vo.cat_name}</option>
-                                            </volist>
-                                        </select>
+                                                                                    </select>
                                     </div>
 
 
@@ -105,8 +102,8 @@
                                         <label class="sr-only">审核状态</label>
                                         <select class="form-control" name="Teacher_type" id="video_typed">
                                             <option value="" selected="selected">全部</option>
-                                            <option value="0" <if condition="$_GET['Teacher_type'] eq '0'">selected="selected"</if>>已审核</option>
-                                            <option value="1" <if condition="$_GET['Teacher_type'] eq 1">selected="selected"</if>>未审核</option>
+                                            <option value="0" >已审核</option>
+                                            <option value="1" >未审核</option>
                                         </select>
                                     </div>
 
@@ -128,8 +125,34 @@
             <div class="row">
                 <div class="col-xs-12">
                     <div class="table-responsive">
-                        {$content}
-                    </div><!-- /.table-responsive -->
+                        <table class="table table-bordered">
+    <thead>
+    <tr>
+        <th><center>cat_id</center></th><th><center>cat_name</center></th><th><center>cat_section</center></th><th><center>parent_id</center></th><th><center>px</center></th>        <th><center>操作</center></th>
+    </tr>
+    </thead>
+    <tbody>
+    <notempty name="mass_catsList">
+    <volist name="mass_catsList" id="vo">
+    <tr>
+        <td>{$vo.cat_id}</td><td>{$vo.cat_name}</td><td>{$vo.cat_section}</td><td>{$vo.parent_id}</td><td>{$vo.px}</td>        <td>
+            <div class="button-items">
+              <a class="btn btn-sm btn-success" href="{:U(MODULE_NAME.'/MassCats/edit/id/'.$vo[id])}"><i class="mdi mdi-table-edit"></i>编辑</a>
+              <a class="btn btn-sm btn-danger del" href="javascript:void(0);" data-id="{$vo[id]}"><i class="mdi mdi-delete-forever"></i>删除</a>
+            </div>
+        </td>
+    <tr>
+        </volist>
+        <else/>
+        <td colspan="99" style="text-align:center;background: #cc213196;color: #fff;" class="danger"> <strong><i class="fa fa-meh-o"></i>
+            &nbsp;&nbsp;当前条件下没有数据</strong>
+        </td>
+         </notempty>
+</table>
+
+    <td colspan="99" style="text-align:center">
+        <ul class="pagination">{$page}</ul>
+    </td>                    </div><!-- /.table-responsive -->
                 </div><!-- /span -->
             </div><!-- /row -->
 
@@ -138,7 +161,7 @@
 
             <!--模态框-->
             <!-- Modal -->
-            <form role="form" id="form-signins" action="<literal>{:U(MODULE_NAME.'/'.CONTROLLER_NAME.'/add')}</literal>" method="POST">
+            <form role="form" id="form-signins" action="{:U(MODULE_NAME.'/'.CONTROLLER_NAME.'/add')}" method="POST">
                 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
@@ -147,18 +170,37 @@
                                 <h4 class="modal-title" id="myModalLabel">添加</h4>
                             </div>
                             <div class="modal-body">
-                                <volist name="tableInfoArray" id="tableInfo">
-                                    <if condition="$tableInfo[$columnNameKey] neq 'id'">
-                                        <div class="form-group">
-                                            <label class="control-label" for="{$tableInfo[$columnNameKey]}">{:pressFieldDict($tableName, $tableInfo[$columnNameKey])}</label>
+                                <div class="form-group">
+                                            <label class="control-label" for="cat_id">cat_id</label>
 
-                                                <input type="text" class="form-control" placeholder="{:pressFieldDict($tableName, $tableInfo[$columnNameKey])}"
-                                                       name="{$tableInfo[$columnNameKey]}" id="{$tableInfo[$columnNameKey]}" />
+                                                <input type="text" class="form-control" placeholder="cat_id"
+                                                       name="cat_id" id="cat_id" />
 
-                                        </div>
-                                    </if>
-                                </volist>
-                            </div>
+                                        </div><div class="form-group">
+                                            <label class="control-label" for="cat_name">cat_name</label>
+
+                                                <input type="text" class="form-control" placeholder="cat_name"
+                                                       name="cat_name" id="cat_name" />
+
+                                        </div><div class="form-group">
+                                            <label class="control-label" for="cat_section">cat_section</label>
+
+                                                <input type="text" class="form-control" placeholder="cat_section"
+                                                       name="cat_section" id="cat_section" />
+
+                                        </div><div class="form-group">
+                                            <label class="control-label" for="parent_id">parent_id</label>
+
+                                                <input type="text" class="form-control" placeholder="parent_id"
+                                                       name="parent_id" id="parent_id" />
+
+                                        </div><div class="form-group">
+                                            <label class="control-label" for="px">px</label>
+
+                                                <input type="text" class="form-control" placeholder="px"
+                                                       name="px" id="px" />
+
+                                        </div>                            </div>
                             <div class="modal-footer">
                                 <button type="submit" class="btn btn-primary">添加</button>
                                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
@@ -169,11 +211,11 @@
             </form>
         </div></div></div>
             <!-------->
-            <import file="js.jquery#ui#widget" />
-            <import file="js.jquery#iframe-transport" />
-            <import file="js.jquery#fileupload" />
+            <script type="text/javascript" src="/Public/js/jquery.ui.widget.js"></script>
+            <script type="text/javascript" src="/Public/js/jquery.iframe-transport.js"></script>
+            <script type="text/javascript" src="/Public/js/jquery.fileupload.js"></script>
             <script>
-                var url = "__URL__/uploadImg";
+                var url = "/index.php/TPH/CRUD/uploadImg";
                 $('#fileupload').fileupload({
                     url: url,
                     dataType: 'json',
@@ -183,7 +225,7 @@
                                 icon: 1,
                                 skin: 'layer-ext-moon'
                             })
-                            $("#pic_show").attr("src","__PUBLIC__/data/img/"+data.result.url);
+                            $("#pic_show").attr("src","/Public/data/img/"+data.result.url);
                             $("#pic").val(data.result.url);
                         }else{
                             layer.alert(data.result.msg, {
@@ -249,7 +291,7 @@
                     }, function(){
                         $.ajax({
                             type: "POST",
-                            url:  "<literal>{:U(MODULE_NAME.'/'.CONTROLLER_NAME.'/delete')}</literal>",
+                            url:  "{:U(MODULE_NAME.'/'.CONTROLLER_NAME.'/delete')}",
                             data: {id:id},
                             dataType: "json",
                             success: function(data){
@@ -268,64 +310,64 @@
 
                 })
 
-                //                $(".check-btn").click(function(){
-                //                    var obj = $(this);
-                //                    var teacher_id = $(this).attr("data-id");
-                //                    var teacher_type = $(this).attr("data-type");
-                //                    if(teacher_type == 0){
-                //                        teacher_type = 1;
-                //                    }else{
-                //                        teacher_type = 0;
-                //                    }
-                //                    layer.confirm('确认要进行该操作 ？', {
-                //                        btn: ['确认','取消'] //按钮
-                //                    }, function(){
-                //                        $.ajax({
-                //                            type: "POST",
-                //                            url:  '{:U("Teacher/TeacherType")}',
-                //                            data: {teacher_id:teacher_id,teacher_type:teacher_type},
-                //                            dataType: "json",
-                //                            success: function(data){
-                //                                if(data.state==100){
-                //                                    layer.msg(data.msg, {icon: 1});
-                //                                    if(teacher_type==0){
-                //                                        obj.removeClass("btn-warning");
-                //                                        obj.addClass("btn-primary");
-                //                                        obj.attr('data-type',0);
-                //                                        obj.children('span').text('已审核');
-                //                                    }else{
-                //                                        obj.removeClass("btn-primary");
-                //                                        obj.addClass("btn-warning");
-                //                                        obj.attr('data-type','1');
-                //                                        obj.children('span').text('未审核');
-                //                                    }
-                //
-                //                                }else{
-                //                                    layer.msg(data.msg, {icon: 2});
-                //                                }
-                //                            }
-                //                        });
-                //                    }, function(){
-                //
-                //                    });
-                //
-                //
-                //                })
-
-
-
-
-
-                //                $(".chzn-select").chosen();
-                //                $('.chzn-select').on('click', function(e){
-                //                    var target = $(e.target).find('input[type=radio]');
-                //                    var which = parseInt(target.val());
-                //                    if(which == 2) $('#form-field-select-4').addClass('tag-input-style');
-                //                    else $('#form-field-select-4').removeClass('tag-input-style');
-                //                });
 
             </script>
 
 
 
 
+//                $(".check-btn").click(function(){
+//                    var obj = $(this);
+//                    var teacher_id = $(this).attr("data-id");
+//                    var teacher_type = $(this).attr("data-type");
+//                    if(teacher_type == 0){
+//                        teacher_type = 1;
+//                    }else{
+//                        teacher_type = 0;
+//                    }
+//                    layer.confirm('确认要进行该操作 ？', {
+//                        btn: ['确认','取消'] //按钮
+//                    }, function(){
+//                        $.ajax({
+//                            type: "POST",
+//                            url:  '/index.php/TPH/Teacher/TeacherType.html',
+//                            data: {teacher_id:teacher_id,teacher_type:teacher_type},
+//                            dataType: "json",
+//                            success: function(data){
+//                                if(data.state==100){
+//                                    layer.msg(data.msg, {icon: 1});
+//                                    if(teacher_type==0){
+//                                        obj.removeClass("btn-warning");
+//                                        obj.addClass("btn-primary");
+//                                        obj.attr('data-type',0);
+//                                        obj.children('span').text('已审核');
+//                                    }else{
+//                                        obj.removeClass("btn-primary");
+//                                        obj.addClass("btn-warning");
+//                                        obj.attr('data-type','1');
+//                                        obj.children('span').text('未审核');
+//                                    }
+//
+//                                }else{
+//                                    layer.msg(data.msg, {icon: 2});
+//                                }
+//                            }
+//                        });
+//                    }, function(){
+//
+//                    });
+//
+//
+//                })
+
+
+
+
+
+//                $(".chzn-select").chosen();
+//                $('.chzn-select').on('click', function(e){
+//                    var target = $(e.target).find('input[type=radio]');
+//                    var which = parseInt(target.val());
+//                    if(which == 2) $('#form-field-select-4').addClass('tag-input-style');
+//                    else $('#form-field-select-4').removeClass('tag-input-style');
+//                });

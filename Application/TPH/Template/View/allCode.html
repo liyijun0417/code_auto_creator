@@ -2,7 +2,7 @@
     <thead>
     <tr>
         <volist name="tableInfoArray" id="tableInfo">
-            <th><center>{$tableInfo[$columnNameKey]}</center></th>
+            <th><center>{:pressFieldDict($tableName, $tableInfo[$columnNameKey])}</center></th>
         </volist>
         <th><center>操作</center></th>
     </tr>

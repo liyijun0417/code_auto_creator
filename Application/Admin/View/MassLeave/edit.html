@@ -1,51 +1,266 @@
-<div class="container">
-<div class="row">
-	<div class="col-md-6">
-		<div class="widget">
-			<div class="widget-head">
-			  <div class="pull-left" height="80">
-			  编辑mass_leave			  </div>
-			  <div class="widget-icons pull-right">
-				<a href="#" class="wminimize"><i class="icon-chevron-up"></i></a> 
-				<a href="#" class="wclose"><i class="icon-remove"></i></a>
-			  </div>  
-			  <div class="clearfix"></div>
-			</div>  
-			<div class="widget-content" >
-			<div class="padd">
-				<div class="form quick-post">
-					  <div class="form-horizontal">                        
-						  <div class="form-group">
-							<form class="form-horizontal" method="post">
-	 <input type="hidden" name="id" value="{$mass_leave.id}" /><div class="form-group">
-		<label class="col-sm-2 control-label" for="teacher_id">teacher_id</label>
-		<div class="col-md-6">
-			<input type="text" class="form-control" placeholder="teacher_id" name="teacher_id" id="teacher_id"  value="{$mass_leave.teacher_id}" />
-		</div>
-	</div>
-	<div class="form-group">
-		<label class="col-sm-2 control-label" for="leave_time">leave_time</label>
-		<div class="col-md-6">
-			<input type="text" class="form-control" placeholder="leave_time" name="leave_time" id="leave_time"  value="{$mass_leave.leave_time}" />
-		</div>
-	</div>
-	<div class="form-group">
-		<label class="col-sm-2 control-label" for="dates">dates</label>
-		<div class="col-md-6">
-			<input type="text" class="form-control" placeholder="dates" name="dates" id="dates"  value="{$mass_leave.dates}" />
-		</div>
-	</div>
-		<div class="form-group">
-		<div class="col-md-2 col-md-offset-2">
-			<input type="submit" value="提交" class="btn btn-default" />
-		</div>
-	</div>
-</form>						  </div>              
-					  </div>
-				</div><!--end  paddad-->
-			</div>
-		</div>	
-		</div>	
-	</div>
-</div>
-</div>
+<div class="row" style="margin-top: 20px;">
+    <div class="main-content"><link rel="stylesheet" href="/Public/assets/css/chosen.css">
+    <script src="/Public/assets/js/chosen.jquery.min.js"></script>
+
+    <style type="text/css">
+        .main-content{
+            margin-left: 110px;
+        }
+        .fileinput-button input {
+            position: absolute;
+            top: 0;
+            right: 0;
+            margin: 0;
+            opacity: 0;
+            -ms-filter: 'alpha(opacity=0)';
+            font-size: 200px;
+            direction: ltr;
+            cursor: pointer;
+        }
+        .fileinput-button {
+            position: relative;
+            overflow: hidden;
+        }
+        .span2{
+            padding: 2px;
+            border: 1px solid #DEDEDE;
+            margin-bottom: 5px;
+        }
+        .span2 p{
+            margin-top: 3px;
+            margin-bottom: 3px;
+        }
+    </style>
+    <div class="breadcrumbs" id="breadcrumbs">
+        <script type="text/javascript">
+            try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
+        </script>
+
+        <ul class="breadcrumb">
+            <li>
+                <i class="icon-home home-icon"></i>
+                <a href="/index.php/TPH/index/index.html">首页</a>
+            </li>
+            <li class="active">修改</li>
+        </ul><!-- .breadcrumb -->
+    </div>
+
+
+    <div class="col-xs-12">
+        <div class="row">
+            <div class="col-xs-9" style="margin:0 auto;">
+
+                <fieldset>
+                    <div id="legend" class="">
+                        <legend>修改</legend>
+                    </div>
+
+
+
+
+                    <!--<div class="control-group">
+                        <div class="panel" id="uploadBox">
+                         <div class="panel-body">
+                            <form class="mcit-dataform" id="data_form" method="post" action="/index.php/TPH/CRUD/creatAllFiles">
+                            <input type="hidden" id="pic" name="pic" value="">
+                            <div class="panel-footer">
+                                <div class="panel-mcit">
+                                    <div class="col-xs-6">
+                                        <span class="btn btn-warning fileinput-button">
+                                            <i class="glyphicon glyphicon-plus"></i>
+                                            <span>上传照片</span>
+                                            <input id="fileupload" type="file" name="photo"></span>
+                                        <br>
+                                        <br>
+                                        <div id="progress" class="progress mcit-progress">
+                                            <div class="progress-bar"></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="clearfix"></div>
+
+                                    <div class="col-xs-6" style="margin-left: 20px;">
+                                        <div class="panel panel-mcit">
+                                            <div class="panel-heading">
+                                                <h5 class="panel-title">照片预览</h5>
+                                            </div>
+                                            <div class="panel-body">
+                                                <img src="/Public/data/img/" id="pic_show" class="img-responsive">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="clearfix"></div>
+
+                                </div>
+                                </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>-->
+
+                    <form id="form1" class="form-horizontal" method="post">
+                                                        <input type="hidden" name="id" value="{$mass_leave.id}" /><div class="form-group">
+                                    <label for="teacher_id" class="col-sm-2 col-label">人员名称</label>
+                                    <div class="col-md-6">
+                                        <input type="text" class="form-control" placeholder="人员名称" name="teacher_id" id="teacher_id"  value="{$mass_leave.teacher_id}" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="leave_time" class="col-sm-2 col-label">请假时间</label>
+                                    <div class="col-md-6">
+                                        <input type="text" class="form-control" placeholder="请假时间" name="leave_time" id="leave_time"  value="{$mass_leave.leave_time}" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="dates" class="col-sm-2 col-label">日期</label>
+                                    <div class="col-md-6">
+                                        <input type="text" class="form-control" placeholder="日期" name="dates" id="dates"  value="{$mass_leave.dates}" />
+                                    </div>
+                                </div>
+                                
+
+
+                        <div class="form-group">
+                            <div class="col-md-6 col-md-offset-2">
+                                <input type="submit" value="提交" class="btn btn-warning">
+                                <button type="button" class="btn btn" onclick="javascript:history.back(-1);">返回</button>
+                            </div>
+                        </div>
+                    </form>
+                    <!--<div class="control-group">
+
+                      <label class="control-label" for="input01">人员简介</label>
+                      <div class="controls">
+                        <textarea name="teacher_brief" style="width:500px;height:200px;"></textarea>
+                        <p class="help-block"></p>
+                      </div>
+                    </div>-->
+                </fieldset>
+
+                <br>
+                <br>
+                <!--<button type="submit" class="btn btn-sm btn-warning">修改</button>
+                <button type="button" class="btn btn-sm" onclick="javascript:history.back(-1);">返回</button>-->
+
+
+            </div>
+        </div>
+    </div>
+
+
+    <script type="text/javascript" src="/Public/js/jquery.ui.widget.js"></script>
+    <script type="text/javascript" src="/Public/js/jquery.iframe-transport.js"></script>
+    <script type="text/javascript" src="/Public/js/jquery.fileupload.js"></script>
+    <script>
+        var url = "/index.php/TPH/CRUD/uploadImg";
+        $('#fileupload').fileupload({
+            url: url,
+            dataType: 'json',
+            done: function (e, data) {
+                if(data.result.state == 1){
+                    layer.alert(data.result.msg, {
+                        icon: 1,
+                        skin: 'layer-ext-moon'
+                    })
+                    $("#pic_show").attr("src","/Public/data/img/"+data.result.url);
+                    $("#pic").val(data.result.url);
+                }else{
+                    layer.alert(data.result.msg, {
+                        icon: 2,
+                        skin: 'layer-ext-moon'
+                    })
+
+                }
+            },
+            progressall: function (e, data) {
+                var progress = parseInt(data.loaded / data.total * 100, 10);
+                $('#progress .progress-bar').css(
+                        'width',
+                        progress + '%'
+                );
+            }
+        }).prop('disabled', !$.support.fileInput)
+                .parent().addClass($.support.fileInput ? undefined : 'disabled');
+
+    </script>
+
+    <script>
+        $("#form1").ajaxForm({
+            dataType:'json',
+            clearForm:false,
+            beforeSerialize:function(){
+                if ($('#teacher_name').val() == '') {
+                    layer.alert("人员名称不能为空!", {
+                        icon: 2,
+                        skin: 'layer-ext-moon'
+                    })
+                    return false;
+                }
+            },
+            success:function(data){
+                if (data.state == 100) {
+                    layer.alert(data.msg, {
+                        icon: 1,
+                        skin: 'layer-ext-moon'
+                    })
+                    setTimeout(function(){window.location.reload();},2000);
+                } else {
+                    layer.alert(data.msg, {
+                        icon: 2,
+                        skin: 'layer-ext-moon'
+                    })
+
+                }
+            }
+        });
+
+
+        $(".chzn-select").chosen();
+        $('.chzn-select').on('click', function(e){
+            var target = $(e.target).find('input[type=radio]');
+            var which = parseInt(target.val());
+            if(which == 2) $('#form-field-select-4').addClass('tag-input-style');
+            else $('#form-field-select-4').removeClass('tag-input-style');
+        });
+    </script></div></div>
+
+<script>
+$("#form1").ajaxForm({
+		dataType:'json',
+		clearForm:false,
+		beforeSerialize:function(){
+				if ($('#teacher_name').val() == '') {
+						layer.alert("人员名称不能为空!", {
+							icon: 2,
+							skin: 'layer-ext-moon'
+						})
+						return false;
+				}
+		},
+		success:function(data){
+				if (data.state == 100) {
+					layer.alert(data.msg, {
+						icon: 1,
+						skin: 'layer-ext-moon'
+					})
+					setTimeout(function(){window.location.reload();},2000);
+				} else {
+					layer.alert(data.msg, {
+						icon: 2,
+						skin: 'layer-ext-moon'
+					})
+
+				}
+		}
+});
+
+
+//$(".chzn-select").chosen();
+				//$('.chzn-select').on('click', function(e){
+				 // var target = $(e.target).find('input[type=radio]');
+				  //var which = parseInt(target.val());
+				  //if(which == 2) $('#form-field-select-4').addClass('tag-input-style');
+				  // else $('#form-field-select-4').removeClass('tag-input-style');
+				//});
+</script>
