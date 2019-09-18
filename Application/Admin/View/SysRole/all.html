@@ -1,158 +1,128 @@
-<div class="row" style="margin-top: 10px;">
-    <div class="col-lg-12">
-        <div class="card m-b-30">
-            <div class="card-body">
-                <h4 class="mt-0 header-title">角色列表</h4>
-                <div class="col-12">
-                    <div class="card m-b-30">
-                        <div class="card-body">
-                            <div class="general-label">
-                                <form id="form-signins" class="form-inline" method="post" action="{:U(MODULE_NAME.'/'.CONTROLLER_NAME.'/add')}" role="form">
-                                    <div class="form-group">
-                                        <label class="sr-only" for="exampleInputEmail2">搜索条件1</label>
-                                        <input type="text" id="role_name"name="name" class="form-control ml-2" id="exampleInputEmail2" placeholder="角色名称">
-                                    </div>
+<link rel="stylesheet" href="/Public/assets/css/chosen.css" />
+<script src="/Public/assets/js/chosen.jquery.min.js"></script>
+<link rel="stylesheet" type="text/css" href="/Public/css/lightbox.css" />
+<script type="text/javascript" src="/Public/js/lightbox.js"></script>
+<div class="breadcrumbs" id="breadcrumbs">
+    <script type="text/javascript">
+        try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
+    </script>
 
-                                    <!--<div class="form-group m-l-10">-->
+    <style>
+        .centerbox{
+            width: 100%;
+        }
+        .fileinput-button input {
+            position: absolute;
+            top: 0;
+            right: 0;
+            margin: 0;
+            opacity: 0;
+            -ms-filter: 'alpha(opacity=0)';
+            font-size: 200px;
+            direction: ltr;
+            cursor: pointer;
+        }
+        .fileinput-button {
+            position: relative;
+            overflow: hidden;
+        }
+        .span2{
+            padding: 2px;
+            border: 1px solid #DEDEDE;
+            margin-bottom: 5px;
+        }
+        .span2 p{
+            margin-top: 3px;
+            margin-bottom: 3px;
+        }
+    </style>
+    <ul class="breadcrumb">
+        <li>
+            <i class="icon-home home-icon"></i>
+            <a href="/index.php/TPH/Index/index.html">首页</a>
+        </li>
+        <li class="active">管理员管理</li>
+    </ul><!-- .breadcrumb -->
+
+    <!-- <div class="nav-search" id="nav-search">
+        <form class="form-search">
+            <span class="input-icon">
+                <input type="text" placeholder="Search ..." class="nav-search-input" id="nav-search-input" autocomplete="off" />
+                <i class="icon-search nav-search-icon"></i>
+            </span>
+        </form>
+    </div><!-- #nav-search -->
+</div>
+
+<div class="page-content">
+    <div class="row" style="margin-top: 10px;">
+        <div class="col-lg-12">
+            <div class="card m-b-30">
+                <div class="card-body">
+                    <h4 class="mt-0 header-title">角色列表</h4>
+                    <div class="col-12" style="margin-bottom: 15px;">
+                        <div class="card m-b-30">
+                            <div class="card-body">
+                                <div class="general-label">
+                                    <form id="form-signins" class="form-inline" method="post" action="{:U(MODULE_NAME.'/'.CONTROLLER_NAME.'/add')}" role="form">
+                                        <div class="form-group">
+                                            <label class="sr-only" for="exampleInputEmail2">搜索条件1</label>
+                                            <input type="text" id="role_name"name="name" class="form-control ml-2" id="exampleInputEmail2" placeholder="角色名称">
+                                        </div>
+
+                                        <!--<div class="form-group m-l-10">-->
                                         <!--<label class="sr-only" for="exampleInputPassword2">搜索条件2</label>-->
                                         <!--<input type="text" name="keyword2" class="form-control ml-2" id="exampleInputPassword2" placeholder="搜索条件2">-->
-                                    <!--</div>-->
+                                        <!--</div>-->
 
-                                    <button type="submit" class="btn btn-sm btn-danger ml-2"><i class="mdi mdi-plus-circle"></i>添加</button>
-                                    &nbsp;
-                                    <!--<button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#myModal" style="float:right;"><i class="mdi mdi-plus-circle"></i>添加一个新sys_role</button>-->
-                                </form>
+                                        <button type="submit" class="btn btn-sm btn-danger ml-2"><i class="mdi mdi-plus-circle"></i>添加</button>
+                                        &nbsp;
+                                        <!--<button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#myModal" style="float:right;"><i class="mdi mdi-plus-circle"></i>添加一个新sys_role</button>-->
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <table class="table table-bordered">
-    <thead>
-    <tr>
-        <th style="width: 20%;"><center>角色名称</center></th>
-        <th><center>权限</center></th>
-        <th style="width: 20%;"><center>操作</center></th>
-    </tr>
-    </thead>
-    <tbody>
-    <notempty name="sys_roleList">
-    <volist name="sys_roleList" id="vo">
-    <tr>
-        <td>{$vo.name}</td><td>{$vo.authstr|default="<span style='color:red;'>暂未分配</span>"}</td>
-        <td>
-            <div class="button-items">
-              <a class="btn btn-sm btn-success" href="{:U('SysRole/access',array('role'=>url_base64_encode($vo['id'])))}"><i class="mdi mdi-table-edit"></i>权限分配</a>
-              <a class="btn btn-sm btn-danger del" href="javascript:void(0);" data-id="{$vo[id]}"><i class="mdi mdi-delete-forever"></i>删除</a>
-            </div>
-        </td>
-    <tr>
-        </volist>
-        <else/>
-        <td colspan="99" style="text-align:center;background: #cc213196;color: #fff;" class="danger"> <strong><i class="fa fa-meh-o"></i>
-            &nbsp;&nbsp;当前条件下没有数据</strong>
-        </td>
-         </notempty>
-</table>
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <th style="width: 20%;"><center>角色名称</center></th>
+                            <th><center>权限</center></th>
+                            <th style="width: 20%;"><center>操作</center></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <notempty name="sys_roleList">
+                            <volist name="sys_roleList" id="vo">
+                                <tr>
+                                    <td>{$vo.name}</td><td>{$vo.authstr|default="<span style='color:red;'>暂未分配</span>"}</td>
+                                    <td>
+                                        <div class="button-items">
+                                            <a class="btn btn-sm btn-success" href="{:U('SysRole/access',array('role'=>url_base64_encode($vo['id'])))}"><i class="mdi mdi-table-edit"></i>权限分配</a>
+                                            <a class="btn btn-sm btn-danger del" href="javascript:void(0);" data-id="{$vo[id]}"><i class="mdi mdi-delete-forever"></i>删除</a>
+                                        </div>
+                                    </td>
+                                <tr>
+                            </volist>
+                            <else/>
+                            <td colspan="99" style="text-align:center;background: #cc213196;color: #fff;" class="danger"> <strong><i class="fa fa-meh-o"></i>
+                                &nbsp;&nbsp;当前条件下没有数据</strong>
+                            </td>
+                        </notempty>
+                    </table>
 
-    <td colspan="99" style="text-align:center">
-        <ul class="pagination">{$page}</ul>
-    </td>            </div>
+                    <td colspan="99" style="text-align:center">
+                        <ul class="pagination">{$page}</ul>
+                    </td>            </div>
+            </div>
         </div>
     </div>
 </div>
 
 
 
-<!--模态框-->
-<!-- Modal -->
-<form role="form" id="form-signins" action="{:U(MODULE_NAME.'/'.CONTROLLER_NAME.'/add')}" method="POST">
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h6 class="modal-title" id="myModalLabel">添加</h4>
-                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                </div>
-                <div class="modal-body">
-                    <div class="form-group">
-                                <label class="col-md-6 control-label" for="name">name</label>
-                                <div class="col-md-12">
-                                    <input type="text" class="form-control" placeholder="name"
-                                           name="name" id="name" />
-                                </div>
-                            </div><div class="form-group">
-                                <label class="col-md-6 control-label" for="status">status</label>
-                                <div class="col-md-12">
-                                    <input type="text" class="form-control" placeholder="status"
-                                           name="status" id="status" />
-                                </div>
-                            </div><div class="form-group">
-                                <label class="col-md-6 control-label" for="authstr">authstr</label>
-                                <div class="col-md-12">
-                                    <input type="text" class="form-control" placeholder="authstr"
-                                           name="authstr" id="authstr" />
-                                </div>
-                            </div><div class="form-group">
-                                <label class="col-md-6 control-label" for="authcode">authcode</label>
-                                <div class="col-md-12">
-                                    <input type="text" class="form-control" placeholder="authcode"
-                                           name="authcode" id="authcode" />
-                                </div>
-                            </div><div class="form-group">
-                                <label class="col-md-6 control-label" for="date">date</label>
-                                <div class="col-md-12">
-                                    <input type="text" class="form-control" placeholder="date"
-                                           name="date" id="date" />
-                                </div>
-                            </div>
 
-                </div>
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary">添加</button>
-                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
 
-                </div>
-            </div>
-        </div>
-    </div>
-</form>
-<!-------->
-
-<script type="text/javascript" src="/auto/Public/js/jquery.ui.widget.js"></script>
-<script type="text/javascript" src="/auto/Public/js/jquery.iframe-transport.js"></script>
-<script type="text/javascript" src="/auto/Public/js/jquery.fileupload.js"></script>
-<script>
-    var url = "/auto/index.php/TPH/CRUD/uploadImg";
-    $('#fileupload').fileupload({
-        url: url,
-        dataType: 'json',
-        done: function (e, data) {
-            if(data.result.state == 1){
-                layer.alert(data.result.msg, {
-                    icon: 1,
-                    skin: 'layer-ext-moon'
-                })
-                $("#pic_show").attr("src","/auto/Public/data/img/"+data.result.url);
-                $("#pic").val(data.result.url);
-            }else{
-                layer.alert(data.result.msg, {
-                    icon: 2,
-                    skin: 'layer-ext-moon'
-                })
-
-            }
-        },
-        progressall: function (e, data) {
-            var progress = parseInt(data.loaded / data.total * 100, 10);
-            $('#progress .progress-bar').css(
-                    'width',
-                    progress + '%'
-            );
-        }
-    }).prop('disabled', !$.support.fileInput)
-            .parent().addClass($.support.fileInput ? undefined : 'disabled');
-
-</script>
 
 <script>
 

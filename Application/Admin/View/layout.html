@@ -87,40 +87,14 @@
 						</li>
 
 						
-						<li <if condition="(CONTROLLER_NAME eq Teacher) AND (ACTION_NAME eq index)">class="active"</if>>
-							<a href="{:U(('Teacher/index'))}" <if condition="(CONTROLLER_NAME eq Teacher) AND (ACTION_NAME eq index)">class="active"</if>>
+						<li <if condition="(CONTROLLER_NAME eq MassDriverinfor) AND (ACTION_NAME eq all)">class="active"</if>>
+							<a href="{:U(('MassDriverinfor/all'))}" <if condition="(CONTROLLER_NAME eq MassDriverinfor) AND (ACTION_NAME eq all)">class="active"</if>>
 								<i class="icon-double-angle-right"></i>
-								人员管理
+								测试
 							</a>
 						</li>
 						
-						<li <if condition="(CONTROLLER_NAME eq System) AND (ACTION_NAME eq total)">class="active"</if>>
-							<a href="{:U(('system/total?type=hours'))}" <if condition="(CONTROLLER_NAME eq System) AND (ACTION_NAME eq total)">class="active"</if>>
-								<i class="icon-double-angle-right"></i>
-								考勤统计
-							</a>
-						</li>
-						
-						<li <if condition="(CONTROLLER_NAME eq System) AND (ACTION_NAME eq checklist)">class="active"</if>>
-							<a href="{:U(('system/checklist'))}" <if condition="(CONTROLLER_NAME eq System) AND (ACTION_NAME eq checklist)">class="active"</if>>
-								<i class="icon-double-angle-right"></i>
-								巡查日志
-							</a>
-						</li>
-						
-						<li <if condition="(CONTROLLER_NAME eq System) AND (ACTION_NAME eq recovery)">class="active"</if>>
-							<a href="{:U(('System/recovery'))}" <if condition="(CONTROLLER_NAME eq System) AND (ACTION_NAME eq recovery)">class="active"</if>>
-								<i class="icon-double-angle-right"></i>
-								考勤记录
-							</a>
-						</li>
-						
-						<li <if condition="(CONTROLLER_NAME eq System) AND (ACTION_NAME eq vocation)">class="active"</if>>
-							<a href="{:U(('System/vocation'))}" <if condition="(CONTROLLER_NAME eq System) AND (ACTION_NAME eq vocation)">class="active"</if>>
-								<i class="icon-double-angle-right"></i>
-								请假统计
-							</a>
-						</li>
+
 
 
 
@@ -132,32 +106,20 @@
 								<b class="arrow icon-angle-down"></b>
 							</a>
 
-							<ul class="submenu" <if condition="(CONTROLLER_NAME eq System)">style="display:block;"</if>>
-								<li <if condition="(CONTROLLER_NAME eq System) AND (ACTION_NAME eq index)">class="active"</if>>
-									<a href="{:U(('system/index'))}" <if condition="(CONTROLLER_NAME eq System) AND (ACTION_NAME eq index)">class="active"</if>>
-										<i class="icon-double-angle-right"></i>
-								 		管理员管理
-									</a>
-								</li>
+							<ul class="submenu" <if condition="(CONTROLLER_NAME eq SysUserInfo) or (CONTROLLER_NAME eq SysRole)">style="display:block;"</if>>
 
-								<li <if condition="(CONTROLLER_NAME eq System) AND (ACTION_NAME eq cats)">class="active"</if>>
-									<a href="{:U(('System/cats'))}" <if condition="(CONTROLLER_NAME eq system) AND (ACTION_NAME eq cats)">class="active"</if>>
-										<i class="icon-double-angle-right"></i>
-										部门管理
-									</a>
-								</li>
-								
-								<li <if condition="(CONTROLLER_NAME eq System) AND (ACTION_NAME eq action)">class="active"</if>>
-									<a href="{:U(('System/action'))}" <if condition="(CONTROLLER_NAME eq system) AND (ACTION_NAME eq action)">class="active"</if>>
-										<i class="icon-double-angle-right"></i>
-										行为管理
-									</a>
-								</li>
 
                                 <li <if condition="(CONTROLLER_NAME eq SysUserInfo) AND (ACTION_NAME eq all)">class="active"</if>>
                                     <a href="{:U(('SysUserInfo/all'))}" <if condition="(CONTROLLER_NAME eq SysUserInfo) AND (ACTION_NAME eq all)">class="active"</if>>
                                     <i class="icon-double-angle-right"></i>
                                     系统用户
+                                    </a>
+                                </li>
+
+                                <li <if condition="(CONTROLLER_NAME eq SysRole) AND (ACTION_NAME eq all)">class="active"</if>>
+                                    <a href="{:U(('SysRole/all'))}" <if condition="(CONTROLLER_NAME eq SysRole) AND (ACTION_NAME eq all)">class="active"</if>>
+                                    <i class="icon-double-angle-right"></i>
+                                    角色权限管理
                                     </a>
                                 </li>
 

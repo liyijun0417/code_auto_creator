@@ -41,7 +41,7 @@
             <i class="icon-home home-icon"></i>
             <a href="/index.php/TPH/Index/index.html">首页</a>
         </li>
-        <li class="active">xx管理</li>
+        <li class="active">mass_driverinfor管理</li>
     </ul><!-- .breadcrumb -->
 
     <!-- <div class="nav-search" id="nav-search">
@@ -57,7 +57,7 @@
 <div class="page-content">
     <div class="page-header">
         <h1>
-            mass_leave列表
+            mass_driverinfor列表
         </h1>
     </div><!-- /.page-header -->
 
@@ -68,7 +68,7 @@
                 <div class="col-xs-12 col-sm-12">
                     <div class="widget-box">
                         <div class="widget-header">
-                            <h4>查找mass_leave</h4>
+                            <h4>查找mass_driverinfor</h4>
 
 								<span class="widget-toolbar">
 
@@ -84,10 +84,10 @@
 
                         <div class="widget-body">
                             <div class="widget-main">
-                                <form class="form-inline" role="form" id="form-signin" action="/index.php/TPH/Teacher/index.html" method="get">
+                                <form class="form-inline" role="form" id="form-signin" action="/index.php/TPH/CRUD/creatAllFiles" method="get">
                                     <div class="form-group">
                                         <label class="sr-only">名称</label>
-                                        <input type="text" name="teacher_name" class="form-control" id="teacher_name" placeholder="请输入关键字">
+                                        <input type="text" name="keywords" class="form-control" id="keywords" placeholder="请输入关键字">
                                     </div>
 
                                     <div class="form-group">
@@ -128,16 +128,16 @@
                         <table class="table table-bordered">
     <thead>
     <tr>
-        <th><center>ID</center></th><th><center>人员名称</center></th><th><center>请假时间</center></th><th><center>日期</center></th>        <th><center>操作</center></th>
+        <th><center></center></th><th><center>从业资格证号</center></th><th><center>驾驶证照</center></th><th><center>从业资格证照</center></th><th><center>创建时间</center></th><th><center>更新时间</center></th><th><center>审核状态</center></th><th><center>用户id</center></th><th><center>所驾驶车辆id</center></th>        <th><center>操作</center></th>
     </tr>
     </thead>
     <tbody>
-    <notempty name="mass_leaveList">
-    <volist name="mass_leaveList" id="vo">
+    <notempty name="mass_driverinforList">
+    <volist name="mass_driverinforList" id="vo">
     <tr>
-        <td>{$vo.id}</td><td>{$vo.teacher_id}</td><td>{$vo.leave_time}</td><td>{$vo.dates}</td>        <td>
+        <td>{$vo.id}</td><td>{$vo.di_certificate}</td><td>{$vo.di_imgdrivinglicense}</td><td>{$vo.di_imgnvq}</td><td>{$vo.di_createtime}</td><td>{$vo.di_updatetime}</td><td>{$vo.di_status}</td><td>{$vo.di_userid}</td><td>{$vo.di_vehicleid}</td>        <td>
             <div class="button-items">
-              <a class="btn btn-sm btn-success" href="{:U(MODULE_NAME.'/MassLeave/edit/id/'.$vo[id])}"><i class="mdi mdi-table-edit"></i>编辑</a>
+              <a class="btn btn-sm btn-success" href="{:U(MODULE_NAME.'/MassDriverinfor/edit/id/'.$vo[id])}"><i class="mdi mdi-table-edit"></i>编辑</a>
               <a class="btn btn-sm btn-danger del" href="javascript:void(0);" data-id="{$vo[id]}"><i class="mdi mdi-delete-forever"></i>删除</a>
             </div>
         </td>
@@ -171,22 +171,52 @@
                             </div>
                             <div class="modal-body">
                                 <div class="form-group">
-                                            <label class="control-label" for="teacher_id">人员名称</label>
+                                            <label class="control-label" for="di_certificate">从业资格证号</label>
 
-                                                <input type="text" class="form-control" placeholder="人员名称"
-                                                       name="teacher_id" id="teacher_id" />
-
-                                        </div><div class="form-group">
-                                            <label class="control-label" for="leave_time">请假时间</label>
-
-                                                <input type="text" class="form-control" placeholder="请假时间"
-                                                       name="leave_time" id="leave_time" />
+                                                <input type="text" class="form-control" placeholder="从业资格证号"
+                                                       name="di_certificate" id="di_certificate" />
 
                                         </div><div class="form-group">
-                                            <label class="control-label" for="dates">日期</label>
+                                            <label class="control-label" for="di_imgdrivinglicense">驾驶证照</label>
 
-                                                <input type="text" class="form-control" placeholder="日期"
-                                                       name="dates" id="dates" />
+                                                <input type="text" class="form-control" placeholder="驾驶证照"
+                                                       name="di_imgdrivinglicense" id="di_imgdrivinglicense" />
+
+                                        </div><div class="form-group">
+                                            <label class="control-label" for="di_imgnvq">从业资格证照</label>
+
+                                                <input type="text" class="form-control" placeholder="从业资格证照"
+                                                       name="di_imgnvq" id="di_imgnvq" />
+
+                                        </div><div class="form-group">
+                                            <label class="control-label" for="di_createtime">创建时间</label>
+
+                                                <input type="text" class="form-control" placeholder="创建时间"
+                                                       name="di_createtime" id="di_createtime" />
+
+                                        </div><div class="form-group">
+                                            <label class="control-label" for="di_updatetime">更新时间</label>
+
+                                                <input type="text" class="form-control" placeholder="更新时间"
+                                                       name="di_updatetime" id="di_updatetime" />
+
+                                        </div><div class="form-group">
+                                            <label class="control-label" for="di_status">审核状态</label>
+
+                                                <input type="text" class="form-control" placeholder="审核状态"
+                                                       name="di_status" id="di_status" />
+
+                                        </div><div class="form-group">
+                                            <label class="control-label" for="di_userid">用户id</label>
+
+                                                <input type="text" class="form-control" placeholder="用户id"
+                                                       name="di_userid" id="di_userid" />
+
+                                        </div><div class="form-group">
+                                            <label class="control-label" for="di_vehicleid">所驾驶车辆id</label>
+
+                                                <input type="text" class="form-control" placeholder="所驾驶车辆id"
+                                                       name="di_vehicleid" id="di_vehicleid" />
 
                                         </div>                            </div>
                             <div class="modal-footer">

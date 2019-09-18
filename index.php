@@ -16,7 +16,7 @@ if(version_compare(PHP_VERSION,'5.3.0','<'))  die('require PHP > 5.3.0 !');
 
 // 开启调试模式 建议开发阶段开启 部署阶段注释或者设为false
 define('APP_DEBUG',true);
-
+//define('_PHP_FILE_',$_SERVER['SCRIPT_NAME']);//nginx环境下需要加上该常量，否则路径会混乱
 // 定义应用目录
 define('APP_PATH','./Application/');
 

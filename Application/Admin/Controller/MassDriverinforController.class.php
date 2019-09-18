@@ -1,34 +1,34 @@
 <?php
-//该代码由原型架构器自动生成----------李沂君（2019-09-11 18:33:06）
+//该代码由原型架构器自动生成----------李沂君（2019-09-18 16:35:15）
 namespace Admin\Controller;
 use Think\Controller;
 
 use Yijun\Page;
 
-class MassCommentController extends BaseController {
+class MassDriverinforController extends BaseController {
 public function all(){
 
-	$count =  M('MassComment')->where()->count();
+	$count =  M('MassDriverinfor')->where()->count();
 	$Page = new Page($count);	//实例化分页类
     $nowPage = isset($_GET['page']) ? $_GET['page'] : 1 ;
 	$show = $Page->show();	//分页显示输出
-	$mass_commentList =  M('MassComment')->where()->page($nowPage.','.$Page->listRows)->select();	//分页查询
+	$mass_driverinforList =  M('MassDriverinfor')->where()->page($nowPage.','.$Page->listRows)->select();	//分页查询
 	$this->assign('page',$show);	//赋值分页输出
-	$this->assign('mass_commentList', $mass_commentList);
+	$this->assign('mass_driverinforList', $mass_driverinforList);
 	$this->display();
 }
 
 public function add(){
 	if(IS_POST){
-		$mass_commentModel = M('MassComment');
-		$mass_commentModel ->create();
-		$flag = $mass_commentModel ->add();
+		$mass_driverinforModel = M('MassDriverinfor');
+		$mass_driverinforModel ->create();
+		$flag = $mass_driverinforModel ->add();
 		if($flag){
                 $return['state'] = 100;
                 $return['msg'] = '操作成功!' ;
             }else{
                 $return['state'] = 200;
-                $return['sql'] = $mass_commentModel->_sql();
+                $return['sql'] = $mass_driverinforModel->_sql();
                 $return['msg'] = '操作失败!' ;
             }
             echo json_encode($return);
@@ -39,38 +39,38 @@ public function add(){
 }
 
 public function edit(){
-	$mass_commentModel = M('MassComment');
+	$mass_driverinforModel = M('MassDriverinfor');
 	if(IS_POST){
-		$mass_commentModel ->create();
-		$flag = $mass_commentModel ->save();
+		$mass_driverinforModel ->create();
+		$flag = $mass_driverinforModel ->save();
 		if($flag){
             $return['state'] = 100;
             $return['msg'] = '操作成功!' ;
         }else{
             $return['state'] = 200;
-            $return['sql'] = $mass_commentModel->_sql();
+            $return['sql'] = $mass_driverinforModel->_sql();
             $return['msg'] = '操作失败!' ;
         }
         echo json_encode($return);
         exit;
 	}else{
 		$id = I('id'); 
-		$mass_comment = $mass_commentModel->find($id);
-		$this->assign('mass_comment', $mass_comment);
+		$mass_driverinfor = $mass_driverinforModel->find($id);
+		$this->assign('mass_driverinfor', $mass_driverinfor);
 		$this->display();
 	}
 }
 
 public function delete(){
-	$mass_commentModel = M('mass_comment');
+	$mass_driverinforModel = M('mass_driverinfor');
 	$map['id'] = I('id');
-	$flag = $mass_commentModel->where($map)->delete();
+	$flag = $mass_driverinforModel->where($map)->delete();
 	if($flag){
         $return['state'] = 100;
         $return['msg'] = '操作成功!' ;
      }else{
         $return['state'] = 200;
-        $return['sql'] = $mass_commentModel->_sql();
+        $return['sql'] = $mass_driverinforModel->_sql();
         $return['msg'] = '操作失败!' ;
     }
     echo json_encode($return);

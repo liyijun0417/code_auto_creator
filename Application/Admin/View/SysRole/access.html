@@ -1,104 +1,159 @@
-<style>
-    .fade{
-        border: 1px solid #5b6be8;
-        padding: 10px;
-    }
-</style>
-<div class="row" style="margin-top: 10px;">
-    <div class="col-lg-12">
-        <div class="card m-b-30">
-            <div class="card-body">
-                <h4 class="mt-0 header-title">权限节点</h4>
-                <div class="col-12">
-                    <div class="card m-b-30">
-                        <div class="card-body">
-                            <div class="general-label col-4">
-                                <form id="form-signins" class="form-inline" method="post" action="__URL__/node" role="form">
-                                    <div class="form-group">
-                                        <label class="sr-only">名称</label>
-                                        <input type="text" id="node_name" name="title" class="form-control ml-2" id="exampleInputEmail2" placeholder="节点名称">
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="sr-only">级别</label>
-                                        <select name="level" class="form-control ml-2 mt-2">
-                                            <option value="Action">Action</option>
-                                            <option value="Controller">Controller</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="sr-only">Controller</label>
-                                        <input type="text" id="Controller" name="Controller" class="form-control ml-2 mt-2" placeholder="Controller">
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="sr-only">Action</label>
-                                        <input type="text" id="Action" name="Action" class="form-control ml-2 mt-2" placeholder="Action">
-                                    </div>
+<link rel="stylesheet" href="/Public/assets/css/chosen.css" />
+<script src="/Public/assets/js/chosen.jquery.min.js"></script>
+<link rel="stylesheet" type="text/css" href="/Public/css/lightbox.css" />
+<script type="text/javascript" src="/Public/js/lightbox.js"></script>
+<div class="breadcrumbs" id="breadcrumbs">
+    <script type="text/javascript">
+        try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
+    </script>
 
-                                    <br>
-                                    <button type="submit" class="btn btn-sm btn-danger ml-2 mt-2"><i class="mdi mdi-plus-circle"></i>添加权限节点</button>
-                                    &nbsp;
-                                    <!--<button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#myModal" style="float:right;"><i class="mdi mdi-plus-circle"></i>添加一个新sys_role</button>-->
-                                </form>
+    <style>
+        .centerbox{
+            width: 100%;
+        }
+        .fileinput-button input {
+            position: absolute;
+            top: 0;
+            right: 0;
+            margin: 0;
+            opacity: 0;
+            -ms-filter: 'alpha(opacity=0)';
+            font-size: 200px;
+            direction: ltr;
+            cursor: pointer;
+        }
+        .fileinput-button {
+            position: relative;
+            overflow: hidden;
+        }
+        .span2{
+            padding: 2px;
+            border: 1px solid #DEDEDE;
+            margin-bottom: 5px;
+        }
+        .fade{
+            border: 1px solid #5b6be8;
+            padding: 10px;
+        }
+        .span2 p{
+            margin-top: 3px;
+            margin-bottom: 3px;
+        }
+    </style>
+    <ul class="breadcrumb">
+        <li>
+            <i class="icon-home home-icon"></i>
+            <a href="{:U('index/inedx')}">首页</a>
+        </li>
+        <li class="active">权限节点管理</li>
+    </ul><!-- .breadcrumb -->
+
+    <!-- <div class="nav-search" id="nav-search">
+        <form class="form-search">
+            <span class="input-icon">
+                <input type="text" placeholder="Search ..." class="nav-search-input" id="nav-search-input" autocomplete="off" />
+                <i class="icon-search nav-search-icon"></i>
+            </span>
+        </form>
+    </div><!-- #nav-search -->
+</div>
+
+<div class="page-content">
+    <div class="row" style="margin-top: 10px;">
+        <div class="col-lg-12">
+            <div class="card m-b-30">
+                <div class="card-body">
+                    <h4 class="mt-0 header-title">权限节点</h4>
+                    <div class="col-12">
+                        <div class="card m-b-30">
+                            <div class="card-body">
+                                <div class="general-label col-4">
+                                    <form id="form-signins" class="form-inline" method="post" action="__URL__/node" role="form">
+                                        <div class="form-group">
+                                            <label class="sr-only">名称</label>
+                                            <input type="text" id="node_name" name="title" class="form-control ml-2" id="exampleInputEmail2" placeholder="节点名称">
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="sr-only">级别</label>
+                                            <select name="level" class="form-control ml-2 mt-2">
+                                                <option value="Action">Action</option>
+                                                <option value="Controller">Controller</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="sr-only">Controller</label>
+                                            <input type="text" id="Controller" name="Controller" class="form-control ml-2 mt-2" placeholder="Controller">
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="sr-only">Action</label>
+                                            <input type="text" id="Action" name="Action" class="form-control ml-2 mt-2" placeholder="Action">
+                                        </div>
+                                        <div class="form-group">
+                                        <button type="submit" class="btn btn-sm btn-danger ml-2 mt-2"><i class="mdi mdi-plus-circle"></i>添加权限节点</button>
+                                        </div>
+                                        <!--<button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#myModal" style="float:right;"><i class="mdi mdi-plus-circle"></i>添加一个新sys_role</button>-->
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
 
-                <form id="set_access" class="add_form" action="__URL__/setAccess" method="post">
-                    <input type="hidden" name="authstr" id="authstr" value="{$roleInfo.authstr}">
-                    <input type="hidden" name="role" value="{$roleInfo.id}">
-                <div class="col-md-12 col-lg-12">
-                    <div class="card m-b-30">
-                        <div class="card-body">
-                            <h4 class="mt-0 header-title"><i class="fa fa-list"></i>
-                                &nbsp;&nbsp;{$roleInfo.name}&nbsp;----权限列表</h4>
-                            <p class="text-muted m-b-30 font-14">系统各模块权限列表如下,请准确选择角色权限</p>
-                            <div class="row">
-                                <div class="col-3">
-                                    <div class="nav flex-column nav-pills text-center" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                                        <volist name="nodeTree" id="vo">
-                                        <a class="nav-link waves-effect waves-light" id="v-pills-{$vo.name}-tab" data-toggle="pill" href="#v-pills-{$vo.name}" role="tab" aria-controls="v-pills-{$vo.name}" aria-selected="false">{$vo.title}</a>
-                                        </volist>
-                                    </div>
-                                </div>
-                                <div class="col-9">
-                                    <div class="tab-content" id="v-pills-tabContent">
-                                        <volist name="nodeTree" id="vo">
-                                        <div class="tab-pane fade" id="v-pills-{$vo.name}" role="tabpanel" aria-labelledby="v-pills-{$vo.name}-tab">
-                                            <p class="font-14 mb-0">
-                                                <volist name="vo.detail" id="vovo">
-                                                    <div class="col-12 mt-2">
-                                                        <div class="custom-control custom-checkbox mb-3">
-                                                            <input type="checkbox" name="node[]" value="{$vovo.code}" <if condition="$vovo['checked'] eq 1">checked="checked"</if>>
-                                                            <!--<input type="checkbox" class="custom-control-input" id="customCheck{$vovo.id}" name="node[]" <if condition="$vovo['checked'] eq 1">checked="checked"</if>>-->
-                                                            <label>{$vovo.title}</label>
-                                                        </div>
+                    <form id="set_access" class="add_form" action="__URL__/setAccess" method="post">
+                        <input type="hidden" name="authstr" id="authstr" value="{$roleInfo.authstr}">
+                        <input type="hidden" name="role" value="{$roleInfo.id}">
+                        <div class="col-md-12 col-lg-12">
+                            <div class="card m-b-30">
+                                <div class="card-body">
+                                    <h4 class="mt-0 header-title"><i class="fa fa-list"></i>
+                                        &nbsp;&nbsp;{$roleInfo.name}&nbsp;----权限列表</h4>
+                                    <p class="text-muted m-b-30 font-14">系统各模块权限列表如下,请准确选择角色权限</p>
+                                    <div class="row">
+                                        <div class="col-3">
+                                            <div class="nav flex-column nav-pills text-center" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                                                <volist name="nodeTree" id="vo">
+                                                    <a class="nav-link waves-effect waves-light" id="v-pills-{$vo.name}-tab" data-toggle="pill" href="#v-pills-{$vo.name}" role="tab" aria-controls="v-pills-{$vo.name}" aria-selected="false">{$vo.title}</a>
+                                                </volist>
+                                            </div>
+                                        </div>
+                                        <div class="col-9">
+                                            <div class="tab-content" id="v-pills-tabContent">
+                                                <volist name="nodeTree" id="vo">
+                                                    <div class="tab-pane fade" id="v-pills-{$vo.name}" role="tabpanel" aria-labelledby="v-pills-{$vo.name}-tab">
+                                                        <p class="font-14 mb-0">
+                                                            <volist name="vo.detail" id="vovo">
+                                                                <div class="col-12 mt-2">
+                                                                    <div class="custom-control custom-checkbox mb-3">
+                                                                        <input type="checkbox" name="node[]" value="{$vovo.code}" <if condition="$vovo['checked'] eq 1">checked="checked"</if>>
+                                                                        <!--<input type="checkbox" class="custom-control-input" id="customCheck{$vovo.id}" name="node[]" <if condition="$vovo['checked'] eq 1">checked="checked"</if>>-->
+                                                                        <label>{$vovo.title}</label>
+                                                                    </div>
+                                                                </div>
+                                                            </volist>
+                                                        </p>
                                                     </div>
                                                 </volist>
-                                            </p>
-                                        </div>
-                                        </volist>
 
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <div class="col-12">
-                    <!--<input type="hidden" name="authcode" id="authcode" value="{$roleInfo.authcode}">-->
-                    <button class="btn btn-warning" type="submit"> <i class="fa fa-plus"></i>
-                        &nbsp;确认保存
-                    </button>
-                </div>
-                </form>
+                        <div class="col-12">
+                            <!--<input type="hidden" name="authcode" id="authcode" value="{$roleInfo.authcode}">-->
+                            <button class="btn btn-warning" type="submit"> <i class="fa fa-plus"></i>
+                                &nbsp;确认保存
+                            </button>
+                        </div>
+                    </form>
 
+                </div>
             </div>
         </div>
     </div>
-</div>
 
+</div>
 
 
 
