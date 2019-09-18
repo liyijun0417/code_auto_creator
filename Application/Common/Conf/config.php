@@ -13,11 +13,11 @@ return array(
     ),
 	//'TMPL_EXCEPTION_FILE' => '404.html',
     'db_type'   => 'mysql',
-    'db_host'   => '148.70.243.209',
+    'db_host'   => '这里是地址',
     'db_name'   => 'qjzy',
     'db_user'   => 'root',
-    'db_pwd'    => '12qwaszx',
+    'db_pwd'    => '这里是数据库密码',
     'db_port'   => 3306,
     'db_prefix' => '',
-	'SYSTEM_NAME'=>'代码生成器',
+	'SYSTEM_NAME'=>'代码生成器',//项目名称
 );
